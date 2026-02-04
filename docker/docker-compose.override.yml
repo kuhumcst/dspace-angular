@@ -1,0 +1,20 @@
+# Override to use /data for persistent storage
+# Note: Solr runs as root due to NFS all_squash permission issues
+version: '3.7'
+
+services:
+  dspace:
+    volumes:
+      - /data/dspace7/logs:/dspace/log
+      - /data/dspace7/assetstore:/dspace/assetstore
+      - /data/dspace7/handle-server:/dspace/handle-server
+      - ./local.cfg:/dspace/config/local.cfg
+
+  dspacedb:
+    volumes:
+      - /data/dspace7/pgdata:/pgdata
+
+  dspacesolr:
+    volumes:
+      - /data/dspace7/solr_data:/var/solr/data
+      - /data/dspace7/solr_logs:/var/solr/logs

@@ -142,3 +142,108 @@ This command is only really useful for testing our Continuous Integration proces
 ```
 docker-compose -p d7ci -f docker/docker-compose-ci.yml up -d
 ```
+
+---
+
+## CLARIN-DK Production Setup (dspace.clarin.dk)
+
+This section documents the production deployment at CLARIN-DK.
+
+### Architecture
+
+```
+Internet -> Nginx (SSL termination) -> Docker containers
+                                       ├── dspace-angular1 (port 4001 -> 4000)
+                                       ├── dspace1 (port 8081 -> 8080)
+                                       └── dspacesolr1 (port 8984 -> 8983)
+```
+
+### Key Configuration Files
+
+| File | Purpose |
+|------|---------|
+| `.env` | Docker environment variables (DSPACE_HOST, SSL settings) |
+| `config.prod.yml` | Frontend config (REST API URL, languages) |
+| `local.cfg` | Backend config (handle server, email, database) |
+| `docker-compose.override.yml` | NFS volume mounts for assetstore/solr |
+
+### Environment Variables (.env)
+
+```bash
+DSPACE_HOST=dspace.clarin.dk
+DSPACE_SSL=true
+DSPACE_REST_PORT=443
+```
+
+### Docker Compose Environment (docker-compose.yml)
+
+Critical settings for reverse proxy setup:
+
+```yaml
+environment:
+  # UI runs plain HTTP - nginx handles SSL termination
+  DSPACE_UI_SSL: 'false'
+  DSPACE_UI_HOST: '0.0.0.0'  # Bind to all interfaces inside container
+  DSPACE_UI_PORT: 4000
+
+  # REST uses HTTPS since Angular calls external URL via nginx
+  DSPACE_REST_SSL: true
+  DSPACE_REST_HOST: dspace.clarin.dk
+  DSPACE_REST_PORT: 443
+```
+
+**Important:** `DSPACE_UI_HOST` must be `0.0.0.0` (not the external hostname) because:
+- The Angular server binds to this address inside the container
+- Using an external hostname causes `EADDRNOTAVAIL` errors
+- Nginx proxies external requests to the container's port 4000
+
+### Nginx Configuration
+
+The nginx vhost (`/opt/nginx/conf/sites-available/dspace-v7.vhost`) requires a special exception for `config.json`:
+
+```nginx
+# Allow config.json before protect.conf blocks it
+location = /assets/config.json {
+    include proxy_params;
+    proxy_pass http://dspace7-frontend;
+}
+
+include snippets/protect.conf;
+```
+
+**Why:** The shared `protect.conf` blocks files matching `config.` (intended for WordPress), which inadvertently blocks DSpace's `/assets/config.json`. The exact match location takes precedence over the regex patterns.
+
+### Start/Restart Commands
+
+```bash
+cd /opt/dspace7/frontend/docker
+
+# Start all containers
+docker compose -p d7 -f docker-compose.yml -f docker-compose-rest.yml -f docker-compose.override.yml up -d
+
+# Restart with force recreate (picks up .env changes)
+docker compose -p d7 -f docker-compose.yml -f docker-compose-rest.yml -f docker-compose.override.yml up -d --force-recreate
+
+# View logs
+docker logs -f dspace-angular1  # Frontend
+docker logs -f dspace1          # Backend
+docker logs -f dspacesolr1      # Solr
+```
+
+### Troubleshooting
+
+**403 on /assets/config.json**: Check nginx protect.conf exception (see above)
+
+**502 Bad Gateway**: Frontend container not ready or crashed
+```bash
+docker exec dspace-angular1 pm2 list
+docker exec dspace-angular1 sh -c 'cat /root/.pm2/logs/dspace-ui-error-*.log | tail -30'
+```
+
+**EADDRNOTAVAIL error**: `DSPACE_UI_HOST` is set to external hostname instead of `0.0.0.0`
+
+**SSL certificate errors in frontend**: `DSPACE_UI_SSL` should be `false` (nginx handles SSL)
+
+### Shibboleth Authentication
+
+See [`SHIBBOLETH.md`](../SHIBBOLETH.md) in the repo root for a full account of the bugs found and fixes applied.

@@ -2,15 +2,15 @@
 (function(window){
   function AAI() {
     var host = 'https://' + window.location.hostname,
-        ourEntityID = host.match("lindat.mff.cuni.cz") ? "https://ufal-point.mff.cuni.cz" : host;
-    var namespace = 'repository';
+        ourEntityID = host;
+    var namespace = '';
     this.defaults = {
       //host : 'https://ufal-point.mff.cuni.cz',
       host : host, //better default (useful when testing on ufal-point-dev)
       // do not add protocol because an error will appear in the DJ dialog
       // if you see the error, your SP is not listed among djc trusted (edugain is enough to be trusted)
       responseUrl: window.location.protocol + '//lindat.mff.cuni.cz/idpdiscovery/discojuiceDiscoveryResponse.html',
-      ourEntityID: ourEntityID + '/shibboleth/eduid/sp',
+      ourEntityID: ourEntityID + '/shibboleth',
       serviceName: '',
       metadataFeed: host + '/xmlui/discojuice/feeds',
       selector: 'a.signon', // selector for login button
@@ -52,6 +52,8 @@
       if(!opts.target){
         throw 'You need to set the \'target\' parameter.';
       }
+      // Initialise targetUrl with redirectUrl for the DiscoJuice Hosted template URL
+      targetUrl = opts.target + '?redirectUrl=' + window.encodeURIComponent(window.location.href);
       // call disco juice setup
       if (!opts.autoInitialize || opts.selector.length > 0) {
         var djc = DiscoJuice.Hosted.getConfig(
@@ -72,14 +74,14 @@
           'entityID': 'https://idm.clarin.eu',
           'geo': {'lat': 51.833298, 'lon': 5.866699},
           'title': 'Clarin.eu website account',
-          'weight': 1000
+          'weight': -1000
         });
         djc.inlinemetadata.push({
-          'country': 'CZ',
-          'entityID': 'https://cas.cuni.cz/idp/shibboleth',
-          'geo': {'lat': '50.0705102', 'lon': '14.4198844'},
-          'title': 'Univerzita Karlova v Praze',
-          'weight': -1000
+          'country': 'DK',
+          'entityID': 'https://id.ku.dk/nidp/saml2/metadata',
+          'geo': {'lat': '55.6761', 'lon': '12.5683'},
+          'title': 'Københavns Universitet',
+          'weight': -500
         });
 
         if(opts.localauth) {
@@ -114,6 +116,12 @@
           djc.callback = function(e) {
             opts.callback(e, opts, defaultCallback);
           };
+        }
+
+        // Fall back to defaultCallback when no custom opts.callback is provided,
+        // otherwise DiscoJuice has no callback after IdP selection and login stalls
+        if (!djc.callback) {
+          djc.callback = defaultCallback;
         }
 
         if (opts.autoInitialize) {
