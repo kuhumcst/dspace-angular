@@ -22,7 +22,16 @@
 - CPU: 1 core (Intel Xeon Gold 6248 @ 2.50GHz)
 - RAM: 15GB total, 11GB used, 661MB free
 - Swap: 2GB (100% full)
-- **Recommendation:** 4-6 CPU cores, 6-8GB RAM
+- **Recommendation:** 4-8 CPU cores, 6-8GB RAM
+
+**Benchmark results (2026-02-06):**
+
+| Machine | CPU Cores | RAM | Build Time | vs Production |
+|---------|-----------|-----|------------|---------------|
+| Production (clarinrepo01fl) | 1 core | 15GB | **82 minutes** | Baseline |
+| MacBook (Apple Silicon) | 8 cores | 16GB | **8m 47s** | **9.3x faster** ✅ |
+
+This confirms that **CPU cores are the bottleneck**, not RAM.
 
 ---
 
@@ -81,12 +90,14 @@ No changes needed.
 
 ### Strategy 1: Allocate More CPU Cores ⭐ BEST LONG-TERM
 
-**Impact:** Would reduce build from 82 min → 15-25 min
+**Impact:** Would reduce build from 82 min → 8-25 min (depending on cores)
+- **4-6 cores:** ~15-25 minutes (estimated)
+- **8 cores:** ~9 minutes (confirmed via local benchmark)
 
 **Action:** Request VM resize for clarinrepo01fl
-- Target: 4-6 CPU cores
-- Keep RAM at 15GB (sufficient)
-- This is the only way to get reasonable build times
+- Target: 4-6 CPU cores minimum, 8 cores ideal
+- Keep RAM at 15GB (sufficient - not a bottleneck)
+- This is the only way to get reasonable build times on the server itself
 
 **Pros:**
 - Solves the root cause
@@ -116,9 +127,11 @@ You must build your own images with your customizations baked in.
 
 ---
 
-### Strategy 3: Build Locally, Deploy to Production
+### Strategy 3: Build Locally, Deploy to Production ✅ BENCHMARKED
 
 **Impact:** Use your local dev machine's CPU cores for building
+- **Tested on MacBook (8 cores):** Build completes in **8m 47s**
+- **Plus transfer time:** ~10 minutes = **Total ~19 minutes** (vs 82 min on production)
 
 **Workflow:**
 ```bash
@@ -146,14 +159,17 @@ docker compose up -d dspace-angular
 ```
 
 **Pros:**
-- Fast builds on multi-core machine
+- Fast builds on multi-core machine (8m 47s on 8-core MacBook)
 - Full control over customization
 - Works with current infrastructure
+- Still 4.3x faster than production build even with transfer time
 
 **Cons:**
-- Manual workflow
-- Image transfer overhead
+- Manual workflow (can be automated with CI/CD)
+- Image transfer overhead (~10 minutes)
 - Requires good local machine
+
+**Complete workflow documentation:** See `IMAGE-TRANSFER-WORKFLOW.md` for detailed steps
 
 **Alternative: Use Docker registry**
 ```bash
@@ -236,7 +252,7 @@ jobs:
 
 ## Benchmark: Local vs Production Build
 
-**To test local build speed:**
+**Test completed on 2026-02-06:**
 
 ```bash
 # On your local dev machine
@@ -251,16 +267,25 @@ export COMPOSE_DOCKER_CLI_BUILD=1
 time docker build -t dspace-angular:test .
 
 # Check your machine specs for comparison
-nproc  # CPU cores
-free -h  # RAM
+nproc  # CPU cores (macOS: sysctl -n hw.ncpu)
+free -h  # RAM (macOS: sysctl -n hw.memsize)
 ```
 
-**Expected results (if you have 4+ cores):**
-- `yarn install`: 8-12 minutes
-- `yarn build:prod`: 15-25 minutes
-- **Total: 25-35 minutes**
+**Actual results (MacBook with 8 cores, 16GB RAM, Apple Silicon):**
+- **Stage 1 - Dependencies** (`yarn install`): ~52 seconds
+- **Stage 2 - Build** (`yarn build:prod`): ~211 seconds (~3.5 minutes)
+- **Stage 3 - Runtime** (image assembly): ~37 seconds
+- **Total: 8 minutes 47 seconds**
 
-**This will confirm whether CPU cores are the bottleneck.**
+**Comparison:**
+
+| Environment | CPU Cores | RAM | Build Time | vs Production |
+|-------------|-----------|-----|------------|---------------|
+| MacBook (Apple Silicon) | 8 cores | 16GB | **8m 47s** | **9.3x faster** ✅ |
+| Estimated (4-6 cores) | 4-6 cores | 8GB | 15-25 min | 3-5x faster |
+| Production (clarinrepo01fl) | 1 core | 15GB | 82 minutes | Baseline |
+
+**This confirms that CPU cores are the bottleneck, not RAM.**
 
 ---
 
@@ -344,34 +369,52 @@ docker builder prune  # Clean build cache (use with caution)
 ## Recommendations
 
 ### Immediate Actions:
-1. ✅ **Test local build** to confirm CPU bottleneck (Benchmark section)
+1. ✅ **Test local build** - COMPLETED (2026-02-06)
+   - Confirmed: 8m 47s on 8-core MacBook vs 82 min on 1-core server
+   - CPU cores are the bottleneck, not RAM
 2. ⏳ **Request more CPU cores** for production VM (Strategy 1)
-3. 📝 **Set up local build workflow** as interim solution (Strategy 3)
+   - 8 cores ideal (~9 min builds)
+   - 4-6 cores acceptable (~15-25 min builds)
+3. ✅ **Set up local build workflow** - DOCUMENTED
+   - See `IMAGE-TRANSFER-WORKFLOW.md`
+   - Use as interim solution while waiting for CPU upgrade
 
 ### Short-term (while waiting for more cores):
-- Build locally on multi-core machine and transfer images (Strategy 3)
+- Build locally on MacBook (8m 47s) and transfer images to production
 - Only rebuild when absolutely necessary
 - Use in-place edits (docker cp) for AAI file changes to avoid rebuilds
 
-### Long-term (with 4+ cores):
+### Long-term (with 4-8 cores on production):
 - Multi-stage Dockerfile will provide good caching
-- Builds will be 15-25 minutes instead of 82 minutes
-- Normal development workflow becomes viable
+- Builds will be 8-25 minutes instead of 82 minutes (depending on cores)
+- Normal development workflow becomes viable directly on server
 
 ---
 
 ## Next Steps
 
-1. **Test local build speed** to confirm hypothesis
-2. **Request VM resize** to 4-6 CPU cores
-3. **Document local build → production deploy workflow** if needed as interim solution
-4. **Consider CI/CD pipeline** if frequent builds are needed
+1. ✅ ~~**Test local build speed**~~ - COMPLETED (2026-02-06)
+   - Result: 8m 47s on 8-core MacBook vs 82 min on production
+   - Confirmed CPU bottleneck hypothesis
+2. ⏳ **Request VM resize** to 4-8 CPU cores
+   - 8 cores ideal for ~9 min builds
+   - 4-6 cores acceptable for ~15-25 min builds
+3. ✅ ~~**Document local build → production deploy workflow**~~ - COMPLETED
+   - See `IMAGE-TRANSFER-WORKFLOW.md`
+4. 📋 **Consider CI/CD pipeline** if frequent builds are needed
+   - GitHub Actions example included in IMAGE-TRANSFER-WORKFLOW.md
 
 ---
 
 ## Notes
 
-- Current tmux session: `docker-build-test` (can reconnect with `tmux attach -t docker-build-test`)
-- Build log: `/tmp/docker-build-20260206-093733.log`
+- **Benchmark completed:** 2026-02-06 on MacBook (8 cores, 16GB RAM, Apple Silicon)
+  - Build time: 8m 47s (52s deps, 211s build, 37s runtime)
+  - Speed improvement: 9.3x faster than production
+- **Documentation added:**
+  - `LOCAL-DEVELOPMENT.md` - Local dev setup with hot reloading
+  - `IMAGE-TRANSFER-WORKFLOW.md` - Deploy locally-built images to production
+  - `config/config.dev.yml` - Development configuration
 - This branch (`optimize-docker-build`) has optimized Dockerfile ready to merge
 - The optimizations help but don't solve the 1-core bottleneck
+- **Interim solution:** Build locally (8-9 min) and transfer to production
