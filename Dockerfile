@@ -1,35 +1,73 @@
-# This image will be published as dspace/dspace-angular
-# See https://github.com/DSpace/dspace-angular/tree/main/docker for usage details
+# Multi-stage Dockerfile for DSpace Angular
+# Optimized for faster builds with better layer caching
 
-FROM node:18-alpine
+# ============================================================================
+# Stage 1: Dependencies
+# This stage is cached unless package.json or yarn.lock changes
+# ============================================================================
+FROM node:18-alpine AS dependencies
 
-# Ensure Python and other build tools are available
-# These are needed to install some node modules, especially on linux/arm64
-RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
+# Install build tools needed for native module compilation
+RUN apk add --no-cache python3 make g++ && rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
-# Copy dependency manifests first so that yarn install is cached as long as deps don't change
+# Copy only dependency manifests to maximize cache hits
 COPY package.json yarn.lock ./
-# We run yarn install with an increased network timeout (5min) to avoid "ESOCKETTIMEDOUT" errors from hub.docker.com
-# See, for example https://github.com/yarnpkg/yarn/issues/5540
-RUN yarn install --network-timeout 300000
 
+# Install dependencies with BuildKit cache mount for faster reinstalls
+# Cache mount persists node_modules across builds when dependencies haven't changed
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn \
+    yarn install --frozen-lockfile --network-timeout 300000
+
+# ============================================================================
+# Stage 2: Build
+# This stage runs the Angular production build
+# ============================================================================
+FROM dependencies AS builder
+
+WORKDIR /app
+
+# Copy source code (build stage is cached unless source changes)
 COPY . ./
-EXPOSE 4000
 
-# When running in dev mode, 4GB of memory is required to build & launch the app.
-# This default setting can be overridden as needed in your shell, via an env file or in docker-compose.
-# See Docker environment var precedence: https://docs.docker.com/compose/environment-variables/envvars-precedence/
+# Set Node memory limit for build
 ENV NODE_OPTIONS="--max_old_space_size=4096"
 
-# On startup, run in DEVELOPMENT mode (this defaults to live reloading enabled, etc).
-# Listen / accept connections from all IP addresses.
-# NOTE: At this time it is only possible to run Docker container in Production mode
-# if you have a public URL. See https://github.com/DSpace/dspace-angular/issues/1485
-ENV NODE_ENV=development
-RUN apk add tzdata
+# Run production build
+# This is where most build time is spent (~18-20 min)
 RUN yarn build:prod
-RUN npm install pm2 -g
-CMD /bin/sh -c "pm2-runtime start docker/dspace-ui.json > /dev/null 2> /dev/null"
 
+# ============================================================================
+# Stage 3: Runtime
+# This stage creates the minimal production image
+# ============================================================================
+FROM node:18-alpine AS runtime
+
+# Install timezone data and PM2 process manager
+RUN apk add --no-cache tzdata && \
+    npm install -g pm2 && \
+    rm -rf /root/.npm
+
+WORKDIR /app
+
+# Copy package.json for metadata (used by PM2)
+COPY package.json ./
+
+# Copy built application from builder stage
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/docker ./docker
+COPY --from=builder /app/server.ts ./server.ts
+
+# Copy node_modules from dependencies stage (includes production deps)
+COPY --from=dependencies /app/node_modules ./node_modules
+
+# Expose port
+EXPOSE 4000
+
+# Set production environment
+ENV NODE_ENV=development
+ENV NODE_OPTIONS="--max_old_space_size=4096"
+
+# Start application with PM2
+CMD ["/bin/sh", "-c", "pm2-runtime start docker/dspace-ui.json > /dev/null 2> /dev/null"]
