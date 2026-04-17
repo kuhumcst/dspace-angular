@@ -12,6 +12,12 @@ services:
   dspace-angular:
     restart: unless-stopped
     container_name: dspace-angular${INSTANCE}
+    # Cap SSR memory leak; pm2-runtime respawns the worker on OOM.
+    # TODO: investigate and fix the underlying SSR memory leak so this cap is no longer load-bearing.
+    # TODO: revisit memory tuning for the other services — consider reducing the dspace -Xmx and
+    #       solr -m defaults (currently 4g each in docker-compose-rest.yml) and/or adding analogous
+    #       mem_limit caps on dspace and dspacesolr.
+    mem_limit: 2g
     environment:
       TZ: ${TIMEZONE:-Europe/Bratislava}
       # UI runs plain HTTP on 0.0.0.0 inside container - nginx handles SSL termination
