@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Ensure we're running as root
+if [ "$(id -u)" != 0 ]; then
+        echo "ERROR: This script must run as root.  Hint..." 1>&2
+        echo "  sudo $0 $@" 1>&2
+        exit 1
+fi
+
+CURRENTDATE=$(date +%Y-%m-%d)
+PREVDATE=$(date -u -d"1 week ago" +%FT%TZ)
+
+COL_PID="20.500.12115/3"
+EPERSON="admin@clarin.dk"
+
+# Host-side path (created below); mounted at /dspace/aip-backup inside dspace1 container
+# (see docker/docker-compose.override.yml volume: /data/backup/clarindkucph/dspace7:/dspace/aip-backup)
+TARGET_DIR_HOST="/data/backup/clarindkucph/dspace7/aip_dump/collections/$CURRENTDATE"
+TARGET_DIR_CONTAINER="/dspace/aip-backup/aip_dump/collections/$CURRENTDATE"
+
+OPTS="-u -d -a -t AIP -e $EPERSON -i $COL_PID -o updatedAfter=$PREVDATE"
+
+if [ ! -d "$TARGET_DIR_HOST" ]; then
+  mkdir -p "$TARGET_DIR_HOST"
+fi
+
+# incremental AIP backup (CLARIN-DK-UCPH collection)
+docker exec -e JAVA_OPTS="-Xmx4096m -Dfile.encoding=UTF-8" dspace1 \
+  /dspace/bin/dspace packager $OPTS "$TARGET_DIR_CONTAINER/aip_clarin-dk-ucph_col.zip"

@@ -1,8 +1,6 @@
 name: Trigger Build for All Customer Branches
 
 on:
-  schedule:
-    - cron: "0 */4 * * *" # Runs every 4 hours
   workflow_dispatch: # Allows manual triggering
 
 permissions:
