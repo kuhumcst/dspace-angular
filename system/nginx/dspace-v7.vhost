@@ -1,0 +1,126 @@
+# DSpace v7 at dspace.clarin.dk
+# Proxies to Docker containers: frontend (4001), backend (8081)
+
+upstream dspace7-frontend {
+    server 127.0.0.1:4001;
+    keepalive 60;
+}
+
+upstream dspace7-backend {
+    server 127.0.0.1:8081;
+    keepalive 60;
+}
+
+# HTTP - redirect to HTTPS (except ACME challenge)
+server {
+    listen 80;
+    listen [::]:80;
+    server_name dspace.clarin.dk;
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/html;
+    }
+
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}
+
+# HTTPS
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name dspace.clarin.dk;
+
+    error_log /var/log/nginx/dspace7_error_log info;
+    access_log /var/log/nginx/dspace7_access_log;
+
+    # SSL
+    ssl_certificate /etc/letsencrypt/live/dspace.clarin.dk/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dspace.clarin.dk/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/dspace.clarin.dk/chain.pem;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+
+    include snippets/ssl-params.conf;
+    include /opt/nginx/conf/bots.d/ddos.conf;
+    include /opt/nginx/conf/bots.d/blockbots.conf;
+
+    # Allow config.json before protect.conf blocks it
+    location = /assets/config.json {
+        include proxy_params;
+        proxy_pass http://dspace7-frontend;
+    }
+
+    include snippets/protect.conf;
+
+    client_max_body_size 4G;
+
+    # Backend REST API - Shibboleth auth endpoint (must come before general /server)
+    location /server/api/authn/shibboleth {
+        # Clear headers to prevent spoofing
+        include includes/shib_clear_headers;
+        more_clear_input_headers 'affiliation' 'cn' 'entitlement' 'eppn' 'givenName' 'mail' 'persistent-id' 'sn' 'Shib-Identity-Provider';
+
+        # Query shibboleth and let it set headers directly via shib_request_use_headers.
+        # Do NOT use shib_request_set + proxy_set_header: the $upstream_http_variable_*
+        # variables are not populated in the subrequest context, so proxy_set_header
+        # overwrites the correct headers with empty values.
+        shib_request /shibauthorizer;
+        shib_request_use_headers on;
+
+        include proxy_params;
+        proxy_pass http://dspace7-backend;
+    }
+
+    # Backend REST API
+    location /server {
+        include proxy_params;
+        proxy_pass http://dspace7-backend;
+    }
+
+    # Frontend Angular app
+    location / {
+        include proxy_params;
+        proxy_pass http://dspace7-frontend;
+    }
+
+    # X-Sendfile for assetstore (bitstream downloads)
+    location /xsendfile/ {
+        internal;
+        alias /data/dspace7/assetstore/;
+    }
+
+    # Shibboleth FastCGI authorizer
+    location = /shibauthorizer {
+        internal;
+        include fastcgi_params;
+        fastcgi_param HTTP_COOKIE $http_cookie;
+        fastcgi_param HTTP_HOST $host;
+        fastcgi_pass unix:/var/run/shibauthorizer.sock;
+    }
+
+    # Shibboleth FastCGI responder
+    location /Shibboleth.sso {
+        include fastcgi_params;
+        fastcgi_pass unix:/var/run/shibresponder.sock;
+    }
+
+    # Shibboleth error page resources
+    location /shibboleth-sp {
+        alias /opt/shibboleth-sp/share/shibboleth/;
+    }
+
+    # Proxy robots.txt to Angular (generates correct v7 content with sitemap URLs).
+    # Using exact match (=) so it takes priority over location / and is not served
+    # as a static file from the nginx default root (/opt/nginx/html/robots.txt).
+    location = /robots.txt {
+        include proxy_params;
+        proxy_pass http://dspace7-frontend;
+        access_log off;
+    }
+
+    # Static files
+    location ~ ^/favicon.ico$ { access_log off; log_not_found off; }
+    location ~ /\. { access_log off; log_not_found off; deny all; }
+}

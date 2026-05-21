@@ -1,8 +1,6 @@
 name: Import Weekly
 
 on:
-  schedule:
-    - cron: '0 0 * * 0'  # every Sunday at midnight UTC
   workflow_dispatch:
 
 jobs:

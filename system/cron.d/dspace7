@@ -1,0 +1,31 @@
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
+
+# CLARIN-DK DSpace v7 scheduled tasks
+# Targets the v7 Docker stack (container names dspace1, dspacedb1).
+# Timings match /etc/cron.d/dspace (v5) to avoid overlap during parallel run.
+#
+# Not included here (handled internally by DSpace's Quartz scheduler):
+#   - sitemap generation  (sitemap.cron in dspace.cfg)
+#   - solr-database-resync
+#
+# send_info weekly report (v5) → replaced by 'dspace healthcheck -e admin@clarin.dk' below
+
+# Weekly backups
+00 01 * * 1 root    dspace-aip-backup
+00 02 * * 1 root    rsnapshot-assetstore
+
+# Weekly health report
+30 04 * * 1 root    docker exec dspace1 /dspace/bin/dspace healthcheck -e admin@clarin.dk
+
+# Daily DSpace maintenance
+30 00 * * * root    docker exec dspace1 /dspace/bin/dspace embargo-lifter
+00 02 * * * root    docker exec dspace1 /dspace/bin/dspace stat-general
+00 03 * * * root    docker exec dspace1 /dspace/bin/dspace oai import -c
+
+# Daily PostgreSQL dump (v7 DB lives in the dspacedb1 container)
+30 04 * * * root    docker exec dspacedb1 pg_dump -U dspace dspace > /data/dspace7/db-dumps/dspace.\$(date +\%F).sql
+# Prune dumps older than 30 days
+00 05 * * * root    find /data/dspace7/db-dumps/ -name "dspace.*.sql" -mtime +30 -delete
+
+# Prune DSpace logs older than 90 days (log4j2 rotates and compresses daily; no built-in retention)
+00 06 * * * root    find /data/dspace7/logs/ -name "*.log-*" -mtime +90 -delete

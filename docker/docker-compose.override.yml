@@ -1,0 +1,46 @@
+# Override to use /data for persistent storage
+# Note: Solr runs as root due to NFS all_squash permission issues
+#
+# Backend images are pinned to a specific UFAL CI build (git SHA tag).
+# ufal/* also publishes a rolling `dspace-7_x` tag that shifts under us,
+# and the frontend is built from our source — so a rolling backend tag
+# lets the two drift after an upstream rebase (e.g. a 7.6.5 frontend
+# against a cached 7.6.1 backend silently breaks Shibboleth login because
+# `/server/api/security/csrf` only exists from 7.6.5).
+#
+# To roll forward: update the SHA in Dockerfile.dspace ARG DSPACE_IMAGE,
+# rebuild with `docker compose -p d7 -f docker-compose-rest.yml \
+#   -f docker-compose.override.yml build dspace`, verify, then redeploy.
+#
+# The dspace service is built from Dockerfile.dspace (extends the pinned
+# ufal/dspace image) rather than pulled directly; this adds the Oracle BDB JE
+# JAR that the ufal image is missing (required by handle-9.3.2 for the handle
+# server transaction queue).
+version: '3.7'
+
+services:
+  dspace:
+    build:
+      context: .
+      dockerfile: Dockerfile.dspace-handle-server
+      args:
+        DSPACE_IMAGE: ufal/dspace:3e204e5e5d2267f7ac4c89d09d80930829d1cef6
+    image: clarin-dk/dspace:3e204e5e5d2267f7ac4c89d09d80930829d1cef6
+    user: root
+    volumes:
+      - /data/dspace7/logs:/dspace/log
+      - /data/dspace7/assetstore:/dspace/assetstore
+      - /opt/dspace7/handle-server:/dspace/handle-server
+      - ./local.cfg:/dspace/config/local.cfg
+      - /data/backup/clarindkucph/dspace7:/dspace/aip-backup
+
+  dspacedb:
+    image: ufal/dspace-postgres-pgcrypto:3e204e5e5d2267f7ac4c89d09d80930829d1cef6
+    volumes:
+      - /data/dspace7/pgdata:/pgdata
+
+  dspacesolr:
+    image: ufal/dspace-solr:3e204e5e5d2267f7ac4c89d09d80930829d1cef6
+    volumes:
+      - /data/dspace7/solr_data:/var/solr/data
+      - /data/dspace7/solr_logs:/var/solr/logs

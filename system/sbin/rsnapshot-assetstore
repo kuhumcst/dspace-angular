@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Ensure we're running as root
+if [ "$(id -u)" != 0 ]; then
+        echo "ERROR: This script must run as root.  Hint..." 1>&2
+        echo "  sudo $0 $@" 1>&2
+        exit 1
+fi
+
+DATE=$(date +%Y-%m-%d)
+SOURCE="/data/dspace7/assetstore/"
+CURRENT="/data/dspace7/assetstore/"
+SNAP="/data/backup/clarindkucph/dspace7/assetstore/$DATE"
+OPTS="-rltgoivhz --delay-updates --link-dest=$CURRENT --chmod=a-w --log-file=/var/log/backup/rsnapshot_assetstore.log"
+
+# run this process with real low priority
+ionice -c 3 -p $$
+renice +12  -p $$
+
+if [ ! -d "$SNAP" ]; then
+  mkdir -p "$SNAP"
+fi
+
+# incremental backups with rsync
+rsync $OPTS $SOURCE $SNAP

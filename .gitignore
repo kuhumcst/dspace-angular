@@ -60,3 +60,5 @@ python_data_import/date.txt
 /home-initial.png
 /overlay-state.png
 /verify-*.png
+
+.claude/settings.local.json

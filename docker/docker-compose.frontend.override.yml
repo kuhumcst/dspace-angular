@@ -1,0 +1,20 @@
+# CLARIN-DK frontend overrides. Merged on top of docker-compose.yml via:
+#   docker compose -f docker-compose.yml -f docker-compose.frontend.override.yml up -d --build
+# Keeps upstream's docker-compose.yml byte-identical.
+services:
+  dspace-angular:
+    # Use upstream's multi-stage "dist" Dockerfile — it's what upstream's entrypoint
+    # assumes (places dspace-ui.json at /app/dspace-ui.json). The plain Dockerfile
+    # puts the file at /app/docker/dspace-ui.json and no longer matches.
+    build:
+      dockerfile: Dockerfile.dist
+    # Cap SSR memory leak; pm2-runtime respawns the worker on OOM.
+    # TODO: investigate and fix the underlying SSR leak so this cap is no longer load-bearing.
+    mem_limit: 2g
+    environment:
+      # Listen on all interfaces in-container; nginx on the host reverse-proxies to 4001.
+      # Upstream hard-codes the docker-network hostname, which doesn't fit our nginx layout.
+      DSPACE_UI_HOST: '0.0.0.0'
+      # REST backend is reached via nginx at HTTPS :443, not directly at :8080.
+      # Upstream's default is 8080 which only makes sense inside the docker network.
+      DSPACE_REST_PORT: 443

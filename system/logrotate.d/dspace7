@@ -1,0 +1,11 @@
+# handle-server.log is the only DSpace log not managed by log4j2's RollingFileAppender.
+# All other logs under /data/dspace7/logs/ are rotated and gzip-compressed daily by
+# log4j2 inside the container; they are pruned after 90 days by cron (see cron.d/dspace7).
+/data/dspace7/logs/handle-server.log {
+    weekly
+    copytruncate
+    compress
+    rotate 8
+    missingok
+    notifempty
+}

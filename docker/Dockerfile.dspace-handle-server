@@ -1,0 +1,15 @@
+ARG DSPACE_IMAGE=ufal/dspace:dspace-7_x
+FROM ${DSPACE_IMAGE}
+
+# Oracle Berkeley DB Java Edition is required by handle-9.3.2.jar
+# (net.handle.server.HandleServer.initTxnQueue) but is absent from the
+# ufal/dspace image because Oracle publishes it only from their own Maven
+# repository (download.oracle.com/maven), not Maven Central, and the image
+# build silently drops it.  Adding it here means no host-side JAR mount is
+# needed and the handle server starts cleanly on container launch.
+#
+# Version pinned to match the com.sleepycat:je dependency declared in
+# DSpace 7.6.x dspace-api/pom.xml.
+ARG JE_VERSION=7.5.11
+RUN curl -fsSL -o /dspace/lib/je-${JE_VERSION}.jar \
+    https://download.oracle.com/maven/com/sleepycat/je/${JE_VERSION}/je-${JE_VERSION}.jar

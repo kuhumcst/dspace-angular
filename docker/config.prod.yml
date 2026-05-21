@@ -1,3 +1,35 @@
-# This is a sample config file for frontend.
-# Replace with production config.prod.yml.
-# It will be mounted to docker container.
+# CLARIN-DK DSpace 7 Frontend Production Configuration
+
+rest:
+  ssl: true
+  host: dspace.clarin.dk
+  port: 443
+  nameSpace: /server
+
+ui:
+  ssl: true
+  host: dspace.clarin.dk
+  port: 443
+  nameSpace: /
+
+# Rehydrate the ngrx store from SSR-transferred state on client bootstrap.
+# Upstream 7.6.5 (commit 28fb578e4) made rehydration conditional on this flag but
+# only set the default in config.example.yml — not config.yml or default-app-config.ts.
+# Without this, auth context is lost after the Shibboleth round-trip: the backend sets
+# the JWT cookie, but the client-side store never picks up the authenticated state.
+universal:
+  transferState: true
+  replaceRestUrl: true
+
+# Languages: Danish is inactive until da.json5 translation file is created
+# (see CLARIN-DK-CUSTOMIZATION.md).  English is the sole active language for now.
+languages:
+  - code: en
+    label: English
+    active: true
+  - code: da
+    label: Dansk
+    active: false
+  - code: cs
+    label: Ceština
+    active: false
