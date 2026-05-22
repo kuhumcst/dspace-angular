@@ -120,11 +120,11 @@ the content is unlikely to vary by language.
 
 ### AAI / Shibboleth
 
-| File | What it is | Status |
-|------|-----------|--------|
-| `src/aai/aai.js` | DiscoJuice IdP discovery config. Contains LINDAT entity-ID logic (`host.match("lindat.mff.cuni.cz")`), but already includes KU (`id.ku.dk`) as a Danish IdP. | Partially adapted; review entity-ID logic |
-| `src/aai/aai_config.js` | Service name and Shibboleth target. Service name already set to `"CLARIN-DK Repository"`. | Mostly done |
-| `src/aai/discojuice/discojuice.js` | Minified DiscoJuice UI library | No changes needed |
+The DiscoJuice/AAI inline popup has been removed and replaced with a redirect
+to the [CLARIN Discovery Service](https://discovery.clarin.eu/).  The `src/aai/`
+directory and all related scripts no longer exist.  Login is handled entirely by
+`ClarinNavbarTopComponent.redirectToDiscovery()`.  See `SHIBBOLETH.md` for the
+full flow and the list of files that were changed.
 
 ### CLARIN-Specific Modules (`src/app/clarin-*`)
 
@@ -223,14 +223,14 @@ Already configured for CLARIN-DK:
 |------|------|------|
 | Production URLs & ports | ✓ | |
 | Language config (disable cs) | ✓ | |
-| AAI service name | ✓ | |
-| Danish IdP in DiscoJuice | ✓ | |
+| AAI / Shibboleth login | ✓ | Replaced DiscoJuice with CLARIN Discovery Service |
 | Auth plugin sequence (`local.cfg`) | ✓ | |
+| Production URLs & ports | ✓ | |
+| Language config (disable cs) | ✓ | |
 | Header / top nav | | Replace template; `getLangCodeIfCzech()` + `translateSlug()` go with it |
 | Footer | | Replace with CLARIN-DK content; consider adding i18n keys |
 | Home page hero | | Replace logos, banner, and link hrefs |
 | Language switcher | | Swap `cs.png` → `da.png`; update `setLanguage()` call |
-| AAI entity-ID fallback logic | | Remove/update `lindat.mff.cuni.cz` check in `aai.js` |
 | `isCsLocale()` layout check | | Investigate in `clarin-license-info` before removing |
 | Danish translations (`da.json5`) | | Create file, translate, set `da` active — see i18n section |
 | Danish static pages | | Create `static-files/da/` if any static pages are needed in Danish |

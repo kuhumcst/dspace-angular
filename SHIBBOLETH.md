@@ -1,25 +1,59 @@
-# Shibboleth / DiscoJuice Login — CLARIN-DK
+# Shibboleth / CLARIN Discovery Service Login — CLARIN-DK
 
-This documents the bugs found and fixes applied when wiring up federated
-Shibboleth login on the CLARIN-DK fork (`clarin-dk-shibboleth` branch).
+This documents the login flow and fixes applied when wiring up federated
+Shibboleth login on the CLARIN-DK fork.
 
-The login flow here is **not** standard DSpace 7 Shibboleth auth.  It uses
-LINDAT's DiscoJuice/AAI pattern: three static scripts loaded in order by
-`ClarinNavbarTopComponent`:
+## Login flow
 
-```
-discojuice.js  →  aai.js  →  aai_config.js
-```
-
-When the user clicks the login button, DiscoJuice opens an IdP-selection
-popup.  After the user picks an IdP, the browser is redirected to:
+The login flow uses the [CLARIN Discovery Service](https://discovery.clarin.eu/)
+rather than an inline IdP picker.  When the user clicks the login button,
+`ClarinNavbarTopComponent.redirectToDiscovery()` builds a redirect URL and
+sends the browser to:
 
 ```
-/Shibboleth.sso/Login?SAMLDS=1&target=<TARGET>&entityID=<IDP>
+https://discovery.clarin.eu/?entityID=<SP_ENTITY_ID>&return=<SHIBBOLETH_SSO_URL>
 ```
 
-`<TARGET>` must be `/server/api/authn/shibboleth?redirectUrl=<page>`.
-Everything below is about making that URL correct.
+Where:
+- `<SP_ENTITY_ID>` is derived from `window.location.origin + '/shibboleth'`
+  (e.g. `https://repository.clarin.dk/shibboleth`)
+- `<SHIBBOLETH_SSO_URL>` is
+  `<origin>/Shibboleth.sso/Login?SAMLDS=1&target=<TARGET>`
+- `<TARGET>` is `<repoPath>/authn/shibboleth?redirectUrl=<currentPage>`
+
+After the user picks an IdP, the discovery service appends `&entityID=<IDP>`
+to the return URL and redirects back to Shibboleth, which completes the SAML
+exchange and lands the user on the page they came from.
+
+The SP entity ID registered in the CLARIN federation is
+`https://repository.clarin.dk/shibboleth` (see
+`metadata/repository.clarin.dk%252Fshibboleth.xml` in the SPF-SPs-metadata
+repo).  While the frontend is served from `dspace.clarin.dk`, Shibboleth
+accepts both hostnames; the entity ID will automatically match once the
+frontend moves to `repository.clarin.dk`.
+
+---
+
+## Removal of DiscoJuice
+
+The previous implementation used LINDAT's DiscoJuice/AAI pattern: three static
+JS files (`discojuice.js` → `aai.js` → `aai_config.js`) loaded at runtime by
+`ClarinNavbarTopComponent`, which rendered an inline IdP-picker popup.
+
+This was replaced by a redirect to `discovery.clarin.eu`.  The following
+changes were made:
+
+| File | Change |
+|------|--------|
+| `src/app/clarin-navbar-top/clarin-navbar-top.component.ts` | Removed `ScriptLoaderService`, `AfterViewInit`, and all script-loading logic; added `redirectToDiscovery()` |
+| `src/app/clarin-navbar-top/clarin-navbar-top.component.html` | Login link changed from a DiscoJuice hook (`id="clarin-signon-discojuice" class="signon"`) to `(click)="redirectToDiscovery()"` |
+| `src/app/clarin-navbar-top/script-loader-service.ts` | Deleted (only served DiscoJuice/AAI script loading) |
+| `src/app/shared/log-in/methods/password/log-in-password.component.ts` | Removed `toggleDiscojuiceLogin()`, `popUpDiscoJuiceLogin()`, `initializeDiscoJuiceCache()`, and the `SHOW_DISCOJUICE_POPUP_CACHE_NAME` constant |
+| `angular.json` | Removed `src/aai/discojuice/discojuice.css` from the `styles` array |
+| `webpack/webpack.common.ts` | Removed asset-copy entries for `aai.js`, `aai_config.js`, and `discojuice.js` |
+| `src/app/app.module.ts` | Removed `ScriptLoaderService` provider |
+| `src/aai/` | Entire directory deleted (`aai.js`, `aai_config.js`, `discojuice/`) |
+| `src/static-files/disco-juice.html` | Deleted (DiscoJuice response-receiver iframe) |
 
 ---
 
@@ -58,71 +92,17 @@ The netid stored in the `eperson` table must match this re-scoped form:
 user_university.edu@clarin.eu[https://idm.clarin.eu]
 ```
 
-### 3. `aai.js` — empty `target` in login URL
+### 3. `repositoryPath` trailing slash
 
-`targetUrl` was declared as `''` and passed into `DiscoJuice.Hosted.getConfig()`
-before it was ever assigned, so the template URL always had `target=` empty.
+`HALEndpointService.getRootHref()` does not guarantee a trailing slash.
+Concatenating `'authn/shibboleth'` directly produced `…/server/apiauthn/…`.
 
-**Fix:** initialise `targetUrl` from `opts.target` (with `redirectUrl` appended,
-see §5) before the `getConfig()` call.
+**Fix:** in `redirectToDiscovery()`, normalise before concatenation:
 
-### 4. `aai.js` — `defaultCallback` never wired
-
-`defaultCallback` was only set as `djc.callback` when `opts.localauth` was
-truthy.  `aai_config.js` sets `localauth = ''` (CLARIN-DK is federated-only),
-so the callback was never set.
-
-**Fix:** added a fallback after the existing callback blocks:
-
-```javascript
-if (!djc.callback) {
-  djc.callback = defaultCallback;
-}
-```
-
-### 5. `aai.js` — `redirectUrl` missing from target
-
-DiscoJuice Hosted uses the template URL (5th argument to `getConfig`)
-directly for the login redirect — it does **not** invoke `djc.callback`.
-The template URL therefore needs `redirectUrl` baked in at setup time.
-
-**Fix:** changed the `targetUrl` initialisation to include it:
-
-```javascript
-targetUrl = opts.target + '?redirectUrl=' + window.encodeURIComponent(window.location.href);
-```
-
-### 6. `aai.js` — `namespace` leftover from LINDAT
-
-`namespace` was hardcoded to `'repository'` (the LINDAT URL structure).
-This broke flag image paths (`/repository/assets/images/flags/…`), the
-post-SAML redirect base URL, and the login-page fallback redirect.
-
-**Fix:** set `namespace = ''` (CLARIN-DK serves from root).
-
-### 7. `aai_config.js` — Czech/LINDAT-specific code removed
-
-- Removed the `ufal-point-dev` hostname check and the LINDAT themes
-  `responseUrl` path; replaced with `/assets/disco-juice.html?`.
-- Removed the local-auth login form HTML (Prague university accounts).
-- Changed `serviceName` to `"CLARIN-DK Repository"`.
-
-### 8. `discojuice.js` — IdP list and sorting
-
-- Replaced the hardcoded Czech IdP (Prague) with KU (`id.ku.dk`) and
-  CLARIN (`idm.clarin.eu`) in both the HTML template and the
-  `selectProvider` fallback.
-- The IdP list sort in `prepareData` is **ascending** (`return d-e`), so
-  negative weights sort first.  CLARIN is at `-1000`, KU at `-999`.
-- `discojuice.js` ships pre-compressed `.gz` and `.br` copies alongside
-  the plain file.  Both must be regenerated after any edit (use Node's
-  `zlib` — `brotli` CLI is not installed in the container):
-
-```javascript
-const fs = require('fs'), zlib = require('zlib');
-const src = fs.readFileSync('/app/dist/browser/discojuice.js');
-fs.writeFileSync('/app/dist/browser/discojuice.js.gz', zlib.gzipSync(src));
-fs.writeFileSync('/app/dist/browser/discojuice.js.br', zlib.brotliCompressSync(src));
+```typescript
+const repoPath = this.repositoryPath.endsWith('/')
+  ? this.repositoryPath
+  : this.repositoryPath + '/';
 ```
 
 ---
@@ -131,10 +111,10 @@ fs.writeFileSync('/app/dist/browser/discojuice.js.br', zlib.brotliCompressSync(s
 
 - **CLARIN re-scopes eppn.**  Always use `idm.clarin.eu` as the IdP in
   tests; direct university IdPs produce a different identity.
-- **`discojuice.js` needs `.gz`/`.br` regeneration** after edits;
-  `aai.js` does not (nginx serves it uncompressed / on-the-fly).
-- **DiscoJuice Hosted ignores `djc.callback`** for the actual login
-  redirect — the template URL is what matters.  `djc.callback` is kept
-  as a safety fallback only.
-- **Weight sort is ascending** in DiscoJuice's `prepareData`.  Lower
-  (more negative) weight = higher in the list.  `maxhits` defaults to 25.
+- **`docker compose build` exits 0 even on failure.**  After a frontend
+  rebuild, verify the new code landed with
+  `docker exec dspace-angular1 grep -rl "discovery.clarin.eu" /app/dist/browser/`
+  before concluding the deploy succeeded.
+- **`docker compose up -d` will not recreate a running container** even if
+  the image changed.  Always pass `--force-recreate` when redeploying after
+  a rebuild.
