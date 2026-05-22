@@ -198,40 +198,6 @@ projects from `docker/`. Both use `docker/.env` (auto-loaded, `INSTANCE=1`).
 | `package.json` / `yarn.lock` | Frontend rebuild, `yarn install` also re-runs (~30 min total) |
 | `Dockerfile` | Frontend rebuild, no layer cache available |
 
-### In-place edits (bypass the rebuild)
-
-The AAI files (`aai.js`, `aai_config.js`, `discojuice/discojuice.js` under
-`src/aai/`) are plain JS, never compiled by Angular, and can be pushed
-live with `docker cp` without restarting. Anything under `src/app/` or
-`src/themes/` requires a full rebuild.
-
-**Each file exists at three paths in the container** (`dist/browser/`,
-`dist/server/`, `src/`). SSR and the browser client each read a different one,
-so all three must be updated. `discojuice.js` also ships `.gz`/`.br`
-companions in `dist/browser/` that nginx serves preferentially; regenerate
-them after every edit. **The container has no `brotli` CLI**, so use Node's
-built-in `zlib` (see the `node -e` command below). `aai.js` and `aai_config.js`
-have no compressed copies.
-
-```bash
-# aai.js (repeat pattern for aai_config.js as needed)
-docker cp src/aai/aai.js                    dspace-angular1:/app/dist/browser/aai.js
-docker cp src/aai/aai.js                    dspace-angular1:/app/dist/server/aai.js
-docker cp src/aai/aai.js                    dspace-angular1:/app/src/aai/aai.js
-
-# discojuice.js + regenerate .gz/.br
-docker cp src/aai/discojuice/discojuice.js  dspace-angular1:/app/dist/browser/discojuice.js
-docker cp src/aai/discojuice/discojuice.js  dspace-angular1:/app/dist/server/discojuice.js
-docker cp src/aai/discojuice/discojuice.js  dspace-angular1:/app/src/aai/discojuice/discojuice.js
-docker exec dspace-angular1 node -e "
-const fs = require('fs'), zlib = require('zlib');
-const src = fs.readFileSync('/app/dist/browser/discojuice.js');
-fs.writeFileSync('/app/dist/browser/discojuice.js.gz',  zlib.gzipSync(src));
-fs.writeFileSync('/app/dist/browser/discojuice.js.br',  zlib.brotliCompressSync(src));"
-```
-
-> **Note:** these edits are ephemeral and vanish on container recreate/rebuild.
-> Commit source changes to `clarin-dk-v7` so the next build picks them up.
 
 ### Rebase + rebuild
 
