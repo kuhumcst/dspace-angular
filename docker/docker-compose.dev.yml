@@ -1,0 +1,20 @@
+# Docker Compose override for local UI development.
+# Usage: docker compose -p d7 -f docker-compose-rest.yml -f docker-compose.dev.yml up -d
+#
+# What this does:
+#   1. Mounts a custom_run.sh shim so the upstream dspace/dspace image (set via .env) can
+#      start Tomcat — the ufal image provides its own; this shim replaces it locally.
+#   2. Allows CORS from the Angular dev server at localhost:4200.
+#   3. Overrides the auth plugin chain to drop ClarinShibAuthentication, which only exists
+#      in the ufal image and would crash the upstream image on startup.
+#
+# None of these changes affect docker-compose-rest.yml or local.cfg, so the production
+# server (which uses the ufal image and its own .env) is not impacted.
+
+services:
+  dspace:
+    volumes:
+      - ./custom_run.sh:/usr/local/tomcat/custom_run.sh
+    environment:
+      rest__P__cors__P__allowed-origins: http://localhost:4200
+      plugin__P__sequence__P__org__P__dspace__P__authenticate__P__AuthenticationMethod: org.dspace.authenticate.PasswordAuthentication

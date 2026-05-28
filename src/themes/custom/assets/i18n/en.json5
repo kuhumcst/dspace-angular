@@ -4,4 +4,23 @@
 
   // DSpace default: "DSpace Angular :: "
   "repository.title.prefix": "DSpace :: ",
+
+  // Header navigation links
+  "header.nav.home": "Home",
+  "header.nav.repository": "Repository",
+  "header.nav.about": "About CLARIN-DK",
+
+  // Footer
+  "footer.section.coordination-funding": "Coordination, Funding",
+  "footer.section.repository": "Repository",
+  "footer.section.more": "More",
+  "footer.link.nors": "Department of Nordic Studies and Linguistics (NorS), University of Copenhagen",
+  "footer.link.search": "Search Repository",
+  "footer.link.metadata": "Metadata",
+  "footer.link.privacy-policy": "Privacy Policy",
+  "footer.link.submission-lifecycle": "Submission Lifecycle",
+  "footer.link.faq": "FAQ",
+  "footer.link.contact": "Contact",
+  "footer.copyright.prefix": "Copyright ©",
+  "footer.copyright.suffix": "University of Copenhagen. All rights reserved.",
 }

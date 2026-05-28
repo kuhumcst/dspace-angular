@@ -15,6 +15,7 @@ services:
   dspace-angular:
     restart: unless-stopped
     container_name: dspace-angular${INSTANCE}
+    hostname: dspace-angular
     environment:
       TZ: ${TIMEZONE:-Europe/Bratislava}
       DSPACE_UI_SSL: 'false'
@@ -35,7 +36,7 @@ services:
       dockerfile: Dockerfile
     networks:
       dspacenet:
-    entrypoint: ${FE_CMD:-/bin/sh -c "pm2-runtime start dspace-ui.json > /dev/null 2> /dev/null"}
+    entrypoint: ${FE_CMD:-/bin/sh -c "pm2-runtime start docker/dspace-ui.json > /dev/null 2> /dev/null"}
     ports:
     - published: 400${INSTANCE}
       target: 4000

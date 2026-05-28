@@ -1,0 +1,91 @@
+<div class="container clarin-shadow remove-padding clarin-home-page-borders clarin-fix-to-navbar clarin-cut-bottom">
+
+  <!-- Search + browse -->
+  <div class="container clarin-home-page-color pt-4 pb-5">
+    <div class="row justify-content-center pt-4">
+      <div class="col-6 d-flex justify-content-center">
+        <span class="flex-fill input-group-addon">
+          <i style="color: #7479B8;" class="fas fa-search fa-lg"></i>
+        </span>
+        <ds-themed-search-form id="search-form"
+                               class="flex-fill"
+                               [currentUrl]="searchLink"
+                               [inPlaceSearch]="false"
+                               [searchPlaceholder]="'home-page.search' | translate">
+        </ds-themed-search-form>
+      </div>
+    </div>
+    <div class="row justify-content-center pt-3">
+      <a href="javascript:void(0);" (click)="redirectToSearch('')">{{ 'home-page.advanced-search' | translate }}</a>
+      <span class="mx-2">|</span>
+      <a routerLink="/community-list">{{ 'menu.section.browse_global_communities_and_collections' | translate }}</a>
+    </div>
+    <div class="row justify-content-center pt-5">
+      <div class="col-md-9 responsive-padding">
+        <div class="row offset-md-1">
+          <div class="col-md-4 border-bottom">
+            <strong>{{ 'home-page.hyperlink.author.message' | translate }}</strong>
+            <div *ngFor="let authorLink of (authors$ | async)">
+              <span><a [href]="authorLink.url">{{ authorLink.name }} ({{ authorLink.occurrences }})</a></span>
+            </div>
+            <div>
+              <a href="javascript:void(0);" (click)="redirectToBrowseByField('author')">
+                {{ 'home-page.hyperlink.view-more.message' | translate }}
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4 border-bottom">
+            <strong>{{ 'home-page.hyperlink.subject.message' | translate }}</strong>
+            <div *ngFor="let subjectLink of (subjects$ | async)">
+              <span><a [href]="subjectLink.url">{{ subjectLink.name }} ({{ subjectLink.occurrences }})</a></span>
+            </div>
+            <div>
+              <a href="javascript:void(0);" (click)="redirectToBrowseByField('subject')">
+                {{ 'home-page.hyperlink.view-more.message' | translate }}
+              </a>
+            </div>
+          </div>
+          <div class="col-md-4 border-bottom">
+            <strong>{{ 'home-page.hyperlink.language.message' | translate }}</strong>
+            <div *ngFor="let languageLink of (languages$ | async)">
+              <span><a [href]="languageLink.url">{{ languageLink.name }} ({{ languageLink.occurrences }})</a></span>
+            </div>
+            <div>
+              <a href="javascript:void(0);" (click)="redirectToBrowseByField('language')">
+                {{ 'home-page.hyperlink.view-more.message' | translate }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent submissions -->
+  <div class="container pt-3">
+    <div class="card clarin-home-page-items-color">
+      <div class="card-body">
+        <div class="justify-content-between d-flex">
+          <div class="recent-submissions-head flex-fill">{{ 'home-page.whats-new.message' | translate }}</div>
+          <ds-rss class="ml-1 override-css"></ds-rss>
+        </div>
+        <ds-clarin-item-box-view
+          *ngFor="let newItem of (newItems$ | async)"
+          [object]="newItem"></ds-clarin-item-box-view>
+      </div>
+    </div>
+  </div>
+
+  <!-- Most viewed -->
+  <div class="container pt-3 pb-5">
+    <div class="card clarin-home-page-items-color">
+      <div class="card-body">
+        <div class="top-items-head">{{ 'home-page.new-items.message' | translate }}</div>
+        <ds-clarin-item-box-view
+          *ngFor="let topItem of (topItems$ | async)"
+          [object]="topItem"></ds-clarin-item-box-view>
+      </div>
+    </div>
+  </div>
+
+</div>
