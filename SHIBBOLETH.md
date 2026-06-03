@@ -28,7 +28,7 @@ exchange and lands the user on the page they came from.
 The SP entity ID registered in the CLARIN federation is
 `https://repository.clarin.dk/shibboleth` (see
 `metadata/repository.clarin.dk%252Fshibboleth.xml` in the SPF-SPs-metadata
-repo).  While the frontend is served from `dspace.clarin.dk`, Shibboleth
+repo).  While the frontend is served from `repository.clarin.dk`, Shibboleth
 accepts both hostnames; the entity ID will automatically match once the
 frontend moves to `repository.clarin.dk`.
 

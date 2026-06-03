@@ -1,4 +1,5 @@
 {
+
   "401.help": "You're not authorized to access this page. You can use the button below to get back to the home page.",
 
   "401.link.home-page": "Take me to the home page",
@@ -1705,7 +1706,7 @@
 
   "footer.link.cookies": "Cookie settings",
 
-  "footer.link.privacy-policy": "Privacy policy",
+  "footer.link.privacy-policy": "Privacy Policy",
 
   "footer.link.end-user-agreement": "End User Agreement",
 
@@ -2617,7 +2618,7 @@
 
   "item.preview.dc.description.abstract": "Abstract:",
 
-  "item.preview.dc.identifier.other": "Other identifier:",
+  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.language.iso": "Language:",
 
@@ -2636,8 +2637,6 @@
   "item.preview.dc.relation.ispartofseries": "Is part of series",
 
   "item.preview.dc.rights": "Rights",
-
-  "item.preview.dc.identifier.other": "Other Identifier",
 
   "item.preview.dc.relation.issn": "ISSN",
 
@@ -3709,7 +3708,7 @@
 
   "repository.title": "DSpace Repository",
 
-  "repository.title.prefix": "LINDAT/CLARIAH-CZ Repository",
+  "repository.title.prefix": "DSpace Angular :: ",
 
   "resource-policies.add.button": "Add",
 
@@ -5051,7 +5050,7 @@
 
   "thumbnail.person.placeholder": "No Profile Picture Available",
 
-  "title": "DSpace",
+  title: "DSpace",
 
   "vocabulary-treeview.header": "Hierarchical tree view",
 
@@ -5533,95 +5532,120 @@
 
   "admin.update-config.help.directory": "Only files in /config/config-be/ directory can be edited for security reasons.",
 
-  "admin.update-config.success.save.title": "Configuration Saved",
+  "admin.update-config.success.save.title": "File Saved Successfully",
 
-  "admin.update-config.success.save.message": "{{message}}",
+  "admin.update-config.success.save.message": "{{fileName}} has been updated successfully",
 
   "admin.update-config.error.save.title": "Save Failed",
 
-  "admin.update-config.error.save.message": "Unable to save configuration file. Please check the logs and try again.",
+  "admin.update-config.error.save.message": "Could not save {{fileName}}",
 
   "admin.update-config.error.load.title": "Load Failed",
 
   "admin.update-config.error.load.message": "Unable to load configuration file: {{fileName}}",
 
-  // Additional translation keys for enhanced UI
   "admin.update-config.refresh": "Refresh",
+
   "admin.update-config.refresh.tooltip": "Reload configuration files list",
+
   "admin.update-config.loading": "Loading...",
+
   "admin.update-config.loading-files": "Loading configuration files...",
+
   "admin.update-config.loading-content": "Loading file content...",
 
   "admin.update-config.file-selection.title": "File Selection",
+
   "admin.update-config.file-selection.label": "Select Configuration File",
 
   "admin.update-config.file-info.path": "Path",
-  "admin.update-config.file-info.modified": "Last Modified",
+
+  "admin.update-config.file-info.modified": "Modified",
 
   "admin.update-config.select.choose-file": "Choose a configuration file to edit",
+
   "admin.update-config.select.no-files": "No configuration files found",
 
   "admin.update-config.editor.title": "Configuration Editor",
+
   "admin.update-config.editor.content": "File Content",
+
   "admin.update-config.editor.placeholder": "Select a file to begin editing...",
+
   "admin.update-config.editor.characters": "characters",
+
   "admin.update-config.editor.save": "Save Changes",
+
   "admin.update-config.editor.save.tooltip": "Save changes to the configuration file",
+
   "admin.update-config.editor.reset": "Reset",
+
   "admin.update-config.editor.reset.tooltip": "Reset content to original version",
 
   "admin.update-config.validation.valid": "Configuration is valid",
+
   "admin.update-config.validation.invalid": "Configuration contains errors - please fix before saving",
+
   "admin.update-config.validation.unsaved-changes": "File has unsaved changes",
 
   "admin.update-config.help.important.title": "Before You Start",
+
   "admin.update-config.help.important.backup": "Always backup configuration files before making changes",
+
   "admin.update-config.help.important.restart": "DSpace may require restart after configuration changes",
+
   "admin.update-config.help.important.validation": "Configuration validation prevents saving invalid files",
 
   "admin.update-config.help.allowed-files.title": "Editable Files",
+
   "admin.update-config.help.allowed-files.description": "Only configuration files in the server configuration directory can be edited for security reasons:",
 
   "admin.update-config.error.load-files.title": "Load Error",
+
   "admin.update-config.error.load-files.message": "Failed to load configuration files list",
 
-  // Breadcrumb
   "admin.update-config.breadcrumbs": "Update Configuration",
 
-  // File Information
   "admin.update-config.file-info.title": "File Information",
+
   "admin.update-config.file-info.name": "File",
+
   "admin.update-config.file-info.size": "Size",
+
   "admin.update-config.file-info.bytes": "bytes",
-  "admin.update-config.file-info.modified": "Modified",
+
   "admin.update-config.file-info.status": "Status",
+
   "admin.update-config.file-info.ready": "Ready for editing",
 
-  // Action Buttons
   "admin.update-config.buttons.undo": "Undo Changes",
+
   "admin.update-config.buttons.undo.tooltip": "Reset to last saved version",
+
   "admin.update-config.buttons.reload": "Reload File",
+
   "admin.update-config.buttons.reload.tooltip": "Reload file from server",
+
   "admin.update-config.buttons.save": "Save to File",
+
   "admin.update-config.buttons.save.tooltip": "Save changes to configuration file",
+
   "admin.update-config.buttons.saving": "Saving to File...",
 
-  // Editor Notice
   "admin.update-config.editor.notice.title": "File Editor",
+
   "admin.update-config.editor.notice.description": "Editing configuration file {{fileName}}. Changes are saved immediately to the server.",
 
-  // Success Messages
-  "admin.update-config.success.save.title": "File Saved Successfully",
-  "admin.update-config.success.save.message": "{{fileName}} has been updated successfully",
   "admin.update-config.success.reload.title": "File Reloaded",
+
   "admin.update-config.success.reload.message": "Reloaded {{fileName}} from server",
 
-  // Error Messages
   "admin.update-config.error.load-content.title": "Load Failed",
+
   "admin.update-config.error.load-content.message": "Could not load {{fileName}}",
-  "admin.update-config.error.save.title": "Save Failed",
-  "admin.update-config.error.save.message": "Could not save {{fileName}}",
+
   "admin.update-config.error.reload.title": "Reload Failed",
+
   "admin.update-config.error.reload.message": "Could not reload original file",
 
   "admin.system-wide-alert.breadcrumbs": "System-wide Alerts",
@@ -5722,7 +5746,18 @@
 
   "clarin.license.agreement.header.info": "The requested content is distributed under one or more licence(s). You have to agree to the licence(s) below before you can obtain the content. Please, view the licence(s) by clicking on the button(s) and read it carefully. The data filled below might be shared with the submitter of the item and/or for creating statistics.",
 
-  "clarin.license.agreement.signer.header.info": ["The information below identifies you, the SIGNER. If the information is incorrect, please contact our", "Help Desk.", "This information will be stored as part of the electronic signatures."],
+  "clarin.license.agreement.signer.header.info": [
+
+  
+  "The information below identifies you, the SIGNER. If the information is incorrect, please contact our",
+
+  
+  "Help Desk.",
+
+  
+  "This information will be stored as part of the electronic signatures.",
+
+  ],
 
   "clarin.license.agreement.item.handle": "Item handle",
 
@@ -5762,7 +5797,15 @@
 
   "clarin.license.agreement.notification.error.required.info": "You must fill in required info.",
 
-  "clarin.license.agreement.error.message.cannot.download": ["Something went wrong and you cannot download this bitstream, please contact", " Help Desk."],
+  "clarin.license.agreement.error.message.cannot.download": [
+
+  
+  "Something went wrong and you cannot download this bitstream, please contact",
+
+  
+  " Help Desk.",
+
+  ],
 
   "clarin.license.agreement.notification.check.email": "You will receive email with download link.",
 
@@ -6030,7 +6073,15 @@
 
   "item.page.doi": "DOI",
 
-  "item.page.license.message": ["This item is", "and licensed under:"],
+  "item.page.license.message": [
+
+  
+  "This item is",
+
+  
+  "and licensed under:",
+
+  ],
 
   "item.page.acknowledgement.project-name": "Project name:",
 
@@ -6048,7 +6099,18 @@
 
   "item.preview.no-preview": "The file preview has not been generated yet. Please try again later or contact the system administrator",
 
-  "item.refbox.modal.copy.instruction": ["Press", "ctrl + c", "to copy"],
+  "item.refbox.modal.copy.instruction": [
+
+  
+  "Press",
+
+  
+  "ctrl + c",
+
+  
+  "to copy",
+
+  ],
 
   "item.refbox.modal.submit": "Ok",
 
@@ -6066,7 +6128,15 @@
 
   "item.view.box.publisher.message": "Publisher:",
 
-  "item.view.box.files.message": ["This item contains", "files"],
+  "item.view.box.files.message": [
+
+  
+  "This item contains",
+
+  
+  "files",
+
+  ],
 
   "item.view.box.one.file.message": "This item contains 1 file",
 
@@ -6099,8 +6169,11 @@
   "item.page.files.head": "Files in this item",
 
   "item.page.download.button.command.line": "Download instructions for command line",
+
   "item.page.download.command.copy": "Copy to clipboard",
+
   "item.page.download.command.copied": "Copied!",
+
   "item.page.download.command.close": "Close",
 
   "item.page.download.button.all.files.zip": "Download all files in item",
@@ -6117,13 +6190,38 @@
 
   "item.tombstone.withdrawal.reason.default.value": "The reason wasn't specified.",
 
-  "item.tombstone.restricted.contact.help": ["Your user account does not have the credentials to view this item. Please contact the", "Help Desk", "if you have any questions."],
+  "item.tombstone.restricted.contact.help": [
+
+  
+  "Your user account does not have the credentials to view this item. Please contact the",
+
+  
+  "Help Desk",
+
+  
+  "if you have any questions.",
+
+  ],
 
   "item.tombstone.replaced.another-repository.message": "This item is managed by another repository",
 
   "item.tombstone.replaced.locations.message": "You will find this item at the following location(s):",
 
-  "item.tombstone.replaced.help-desk.message": ["The author(s) asked us to hide this submission.", "We still keep all the data and metadata of the original submission but the submission", "is now located at the above url(s). If you need the contents of the original submission, contact us at our", "Help Desk."],
+  "item.tombstone.replaced.help-desk.message": [
+
+  
+  "The author(s) asked us to hide this submission.",
+
+  
+  "We still keep all the data and metadata of the original submission but the submission",
+
+  
+  "is now located at the above url(s). If you need the contents of the original submission, contact us at our",
+
+  
+  "Help Desk.",
+
+  ],
 
   "login.form.or-divider": "or",
 
@@ -6139,11 +6237,39 @@
 
   "clarin.auth-failed.warning.important.message": "Important!",
 
-  "clarin.auth-failed.warning.no-email.message": ["Your IDP (home organization) has not provided your email address. Please fill and verify your email in order to submit new items to the repository, to download restricted items and optionally to subscribe to advanced statistics and/or collection updates.", "If you have any question contact the ", "Help Desk."],
+  "clarin.auth-failed.warning.no-email.message": [
+
+  
+  "Your IDP (home organization) has not provided your email address. Please fill and verify your email in order to submit new items to the repository, to download restricted items and optionally to subscribe to advanced statistics and/or collection updates.",
+
+  
+  "If you have any question contact the ",
+
+  
+  "Help Desk.",
+
+  ],
 
   "clarin.auth-failed.warning.email-info": "This address will be verified and remembered until your IDP provides a different one. You will still sign in through your IDP.",
 
-  "clarin.auth-failed.warning.has-email.message": ["Your IDP (home organization) has not provided your email address.", "You are registered by the e-mail: ", ". Try to login with that e-mail.", " If you have any login issues contact the ", "Help Desk."],
+  "clarin.auth-failed.warning.has-email.message": [
+
+  
+  "Your IDP (home organization) has not provided your email address.",
+
+  
+  "You are registered by the e-mail: ",
+
+  
+  ". Try to login with that e-mail.",
+
+  
+  " If you have any login issues contact the ",
+
+  
+  "Help Desk.",
+
+  ],
 
   "clarin.auth-failed.netid": "netid",
 
@@ -6163,7 +6289,18 @@
 
   "clarin.auth-failed.duplicate-user.header.message": "Authentication Failed",
 
-  "clarin.auth-failed.duplicate-user.error.message": ["Your email", "is already associated with a different user. It is also possible that you used a different identity provider to before. For more information please contact our", "Help Desk"],
+  "clarin.auth-failed.duplicate-user.error.message": [
+
+  
+  "Your email",
+
+  
+  "is already associated with a different user. It is also possible that you used a different identity provider to before. For more information please contact our",
+
+  
+  "Help Desk",
+
+  ],
 
   "clarin.missing-headers.error.message": "Your IDP (home organization) has not provided required headers, we cannot allow you to login to our repository without required information.",
 
@@ -6183,7 +6320,15 @@
 
   "clarin.autoregistration.table.value": "Value",
 
-  "clarin.autoregistration.repository.policy.message": ["We use only the required attributes as stated in", "However we may log the attributes and keep them for a time period."],
+  "clarin.autoregistration.repository.policy.message": [
+
+  
+  "We use only the required attributes as stated in",
+
+  
+  "However we may log the attributes and keep them for a time period.",
+
+  ],
 
   "clarin.autoregistration.button.continue.to.login": "Continue to login",
 
@@ -6347,11 +6492,30 @@
 
   "submission.sections.clarin-license.head.license-decision-message": "By checking this box, you agree to the Distribution License Agreement for this repository to reproduce, translate and distribute your submissions worldwide.",
 
-  "submission.sections.clarin-license.head.license-question-help-desk": ["If you have questions regarding this licence please contact the", "Help Desk"],
+  "submission.sections.clarin-license.head.license-question-help-desk": [
+
+  
+  "If you have questions regarding this licence please contact the",
+
+  
+  "Help Desk",
+
+  ],
 
   "submission.sections.clarin-license.head.license-select-resource": "Select the resource license",
 
-  "submission.sections.clarin-license.head.license-select-providing": ["The License Selector will provide you visual assistance to select the most appropriate license for your data or software. For the list of all supported licenses and their details visit ", "License List Page", "."],
+  "submission.sections.clarin-license.head.license-select-providing": [
+
+  
+  "The License Selector will provide you visual assistance to select the most appropriate license for your data or software. For the list of all supported licenses and their details visit ",
+
+  
+  "License List Page",
+
+  
+  ".",
+
+  ],
 
   "submission.sections.clarin-license.head.license-open-selector": "OPEN License Selector",
 
@@ -6371,7 +6535,18 @@
 
   "submission.sections.clarin-license.head.license-not-offer-proceed-link": "Obtain a link (or a copy) to the license.",
 
-  "submission.sections.clarin-license.head.license-not-offer-proceed-email": ["Send an email to", "Help Desk", "with the license details."],
+  "submission.sections.clarin-license.head.license-not-offer-proceed-email": [
+
+  
+  "Send an email to",
+
+  
+  "Help Desk",
+
+  
+  "with the license details.",
+
+  ],
 
   "submission.sections.clarin-license.head.license-not-offer-proceed-wait": "Save the unfinished submission and wait. We will add the license to the selection list and contact you.",
 
@@ -6381,7 +6556,18 @@
 
   "submission.sections.clarin-license.toggle.on-text": "Accepted",
 
-  "submission.sections.clarin-notice.message": ["The submission process for this collection (\"","\") is still being fine-tuned. If you find yourself unable to continue the submission because you can't provide the required information, because the required format for a field is too strict, because there's no appropriate field for your information, or for any other reason", "let us know"],
+  "submission.sections.clarin-notice.message": [
+
+  
+  "The submission process for this collection (\"",
+
+  
+  "\") is still being fine-tuned. If you find yourself unable to continue the submission because you can't provide the required information, because the required format for a field is too strict, because there's no appropriate field for your information, or for any other reason",
+
+  
+  "let us know",
+
+  ],
 
   "submission.sections.clarin-notice.toggle.on-text": "Confirmed",
 
@@ -6480,15 +6666,25 @@
   "menu.section.epic-handle": "ePIC Handles",
 
   "epic-prefix-handle-page": "ePIC Handle Prefix",
+
   "epic-prefix-handle-page.title": "Enter ePIC Handle Prefix",
+
   "epic-prefix-handle-page.description": "Please enter the handle prefix to manage ePIC handles. The prefix is the first part of your handle identifier.",
+
   "epic-prefix-handle-page.form.prefix-label": "Handle Prefix",
+
   "epic-prefix-handle-page.form.prefix-placeholder": "Enter prefix (e.g., 11148)",
+
   "epic-prefix-handle-page.form.submit-button": "Continue",
+
   "epic-prefix-handle-page.form.help": "The prefix should contain only alphanumeric characters (letters and numbers).",
+
   "epic-prefix-handle-page.form.error.required": "Prefix is required.",
+
   "epic-prefix-handle-page.form.error.pattern": "Prefix must contain only letters and numbers.",
+
   "epic-prefix-handle-page.example.title": "Example",
+
   "epic-prefix-handle-page.example.text": "Example prefix:",
 
   "epic-handle-page.title": "ePIC Handles",
@@ -6567,7 +6763,6 @@
 
   "epic-handle-table.new-handle.notify.error.url-required": "URL is required.",
 
-
   "epic-handle-table.edit-handle": "Edit ePIC Handle",
 
   "epic-handle-table.edit-handle.title": "Edit ePIC Handle",
@@ -6625,7 +6820,6 @@
   "login.already-authenticated.go-profile": "Profile",
 
   "login.already-authenticated.logout": "Logout",
-
   "clarin.bitstream.authorization.denied.message": "Access to download the \"{{bitstream}}\" file was denied by the bitstream resource policy.",
 
   "home.image.glass": "Home page glass magnifier image",
@@ -6661,6 +6855,7 @@
   "submission.workflow.generic.curate": "Curate",
 
   "submission.workflow.generic.curate-help": "Validate the item with the curation framework",
+
   "sidebar.expand.all": "Expand all",
 
   "sidebar.collapse.all": "Collapse all",
@@ -6690,4 +6885,5 @@
   "matomo.subscription.unsubscribe.tooltip": "Unsubscribe from monthly statistics reports for this item",
 
   "statistics.views-downloads.view-button": "Statistics",
+
 }

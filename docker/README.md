@@ -145,7 +145,7 @@ docker-compose -p d7ci -f docker/docker-compose-ci.yml up -d
 
 ---
 
-## CLARIN-DK Production Setup (dspace.clarin.dk)
+## CLARIN-DK Production Setup (repository.clarin.dk)
 
 This section documents the production deployment at CLARIN-DK.
 
@@ -170,7 +170,7 @@ Internet -> Nginx (SSL termination) -> Docker containers
 ### Environment Variables (.env)
 
 ```bash
-DSPACE_HOST=dspace.clarin.dk
+DSPACE_HOST=repository.clarin.dk
 DSPACE_SSL=true
 DSPACE_REST_PORT=443
 ```
@@ -188,7 +188,7 @@ environment:
 
   # REST uses HTTPS since Angular calls external URL via nginx
   DSPACE_REST_SSL: true
-  DSPACE_REST_HOST: dspace.clarin.dk
+  DSPACE_REST_HOST: repository.clarin.dk
   DSPACE_REST_PORT: 443
 ```
 

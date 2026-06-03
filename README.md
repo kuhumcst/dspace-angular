@@ -43,7 +43,7 @@ Install by symlinking or copying to the corresponding system path.
 | `system/sbin/rsnapshot-assetstore` | `/usr/local/sbin/` | Incremental rsync snapshot of `/data/dspace7/assetstore/` |
 | `system/logrotate.d/dspace7` | `/etc/logrotate.d/dspace7` | Weekly `copytruncate` rotation for `handle-server.log` (the only log not managed by log4j2) |
 | `system/docker/daemon.json` | `/etc/docker/daemon.json` | Cap container logs at 5 x 50 MB (`json-file` driver) |
-| `system/nginx/dspace-v7.vhost` | nginx `sites-enabled/` | Reverse proxy for `dspace.clarin.dk`: `/` to Angular, `/server` to backend |
+| `system/nginx/dspace-v7.vhost` | nginx `sites-enabled/` | Reverse proxy for `repository.clarin.dk`: `/` to Angular, `/server` to backend |
 
 ### Handle server
 
@@ -63,7 +63,7 @@ Shibboleth SP (dual v5/v7 setup)
 
 The Shibboleth SP runs on the **host** (`/etc/shibboleth/`), not inside any
 Docker container. Both DSpace v5 (`repository.clarin.dk`) and v7
-(`dspace.clarin.dk`) share a single SP with one entity ID registered in the
+(`repository.clarin.dk`) share a single SP with one entity ID registered in the
 CLARIN federation:
 
 ```
@@ -75,7 +75,7 @@ entityID = https://repository.clarin.dk/shibboleth
 | Host | applicationId | Default ACS index | ACS endpoint |
 |------|--------------|-------------------|--------------|
 | `repository.clarin.dk` | `default` | 1 | `https://repository.clarin.dk/Shibboleth.sso/SAML2/POST` |
-| `dspace.clarin.dk` | `dspace7` | 5 | `https://dspace.clarin.dk/Shibboleth.sso/SAML2/POST` |
+| `repository.clarin.dk` | `dspace7` | 5 | `https://repository.clarin.dk/Shibboleth.sso/SAML2/POST` |
 
 Both sets of ACS endpoints are declared in the metadata template
 (`repository.clarin.dk.template.metadata.xml`) and in the federation metadata

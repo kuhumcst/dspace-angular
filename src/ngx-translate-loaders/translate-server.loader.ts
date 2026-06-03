@@ -1,12 +1,16 @@
 import { TranslateLoader } from '@ngx-translate/core';
 import { Observable, of as observableOf } from 'rxjs';
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { TransferState } from '@angular/platform-browser';
 import { NGX_TRANSLATE_STATE, NgxTranslateState } from './ngx-translate-state';
 
 /**
  * A TranslateLoader for ngx-translate to parse json5 files server-side, and store them in the
- * TransferState
+ * TransferState.
+ *
+ * Loads the base catalogue and the theme overlay, merges them (overlay wins), and stores the
+ * result in TransferState so the browser receives the already-merged translations without an
+ * extra HTTP request.
  */
 export class TranslateServerLoader implements TranslateLoader {
 
@@ -17,30 +21,20 @@ export class TranslateServerLoader implements TranslateLoader {
   ) {
   }
 
-  /**
-   * Return the i18n messages for a given language, and store them in the TransferState
-   *
-   * @param lang the language code
-   */
   public getTranslation(lang: string): Observable<any> {
     const translationHash: string = (process.env.languageHashes as any)[lang + '.json5'];
-    // Retrieve the file for the given language, and parse it
-    const messages = JSON.parse(readFileSync(`${this.prefix}${lang}.${translationHash}${this.suffix}`, 'utf8'));
-    // Store the parsed messages in the transfer state so they'll be available immediately when the
-    // app loads on the client
+    const base = JSON.parse(readFileSync(`${this.prefix}${lang}.${translationHash}${this.suffix}`, 'utf8'));
+
+    // Theme overlay lives alongside the base assets: assets/custom/i18n/{lang}.json.
+    // Derive the path by replacing the i18n directory segment in the prefix.
+    const overlayPath = `${this.prefix.replace(/i18n\/$/, 'custom/i18n/')}${lang}.json`;
+    const overlay = existsSync(overlayPath) ? JSON.parse(readFileSync(overlayPath, 'utf8')) : {};
+
+    const messages = Object.assign({}, base, overlay);
     this.storeInTransferState(lang, messages);
-    // Return the parsed messages to translate things server side
     return observableOf(messages);
   }
 
-  /**
-   * Store the i18n messages for the given language code in the transfer state, so they can be
-   * retrieved client side
-   *
-   * @param lang the language code
-   * @param messages the i18n messages
-   * @protected
-   */
   protected storeInTransferState(lang: string, messages) {
     const prevState = this.transferState.get<NgxTranslateState>(NGX_TRANSLATE_STATE, {});
     const nextState = Object.assign({}, prevState, {

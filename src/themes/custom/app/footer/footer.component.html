@@ -1,0 +1,50 @@
+<footer>
+  <div class="clarin-footer">
+    <div class="container">
+      <div class="row clarin-footer-columns">
+
+        <div class="col-md-4">
+          <h4>{{'footer.section.coordination-funding' | translate}}</h4>
+          <ul>
+            <li><a href="https://www.clarin.eu">CLARIN ERIC</a></li>
+            <li><a href="https://nors.ku.dk">{{'footer.link.nors' | translate}}</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-4">
+          <h4>{{'footer.section.repository' | translate}}</h4>
+          <ul>
+            <li><a routerLink="/static/metadata">{{'footer.link.metadata' | translate}}</a></li>
+            <li><a href="https://info.clarin.dk/en/the-clarin-dk-infrastructure/overview/privacypolicy/">{{'footer.link.privacy-policy' | translate}}</a></li>
+            <li><a routerLink="/static/item-lifecycle">{{'footer.link.submission-lifecycle' | translate}}</a></li>
+            <li><a routerLink="/static/faq">{{'footer.link.faq' | translate}}</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-4">
+          <h4>{{'footer.section.more' | translate}}</h4>
+          <ul>
+            <li><a href="https://info.clarin.dk/en/about/contact/">{{'footer.link.contact' | translate}}</a></li>
+            <li><a href="https://info.clarin.dk/en/">🇬🇧 About CLARIN.dk</a></li>
+            <li><a href="https://info.clarin.dk/">🇩🇰 Om CLARIN.dk</a></li>
+            <li><a href="https://github.com/kuhumcst/dspace-angular/issues" target="_blank" rel="noopener">{{'footer.link.report-issue' | translate}}</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="row clarin-footer-bottom align-items-center justify-content-center">
+        <div class="col-auto">
+          <a href="https://www.clarin.eu/centres/clarin-dk-ucph" target="_blank" rel="noopener">
+            <img src="assets/images/footer/CoreTrustSeal-logo-transparent.png"
+                 alt="CoreTrustSeal" height="60">
+          </a>
+        </div>
+        <div class="col-auto clarin-footer-copyright">
+          {{'footer.copyright.prefix' | translate}} {{ year }} {{'footer.copyright.suffix' | translate}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</footer>

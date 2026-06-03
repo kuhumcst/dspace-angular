@@ -1,0 +1,36 @@
+<header>
+  <div class="container">
+    <div class="d-flex flex-row align-items-center justify-content-between">
+
+      <a class="clarin-dk-brand my-2" routerLink="/home" [attr.aria-label]="'menu.header.image.logo' | translate">
+        <img src="assets/images/dspace-logo-mini.svg" alt="DSpace" class="clarin-dk-logo">
+        <span class="clarin-dk-label">
+          <span class="clarin-dk-label-main">CLARIN.dk</span>
+          <span class="clarin-dk-label-sub">DSpace repository</span>
+        </span>
+      </a>
+
+      <nav class="clarin-dk-nav d-none d-md-flex align-items-center"
+           [attr.aria-label]="'nav.main.description' | translate">
+      </nav>
+
+      <nav role="navigation" [attr.aria-label]="'nav.user.description' | translate"
+           class="navbar navbar-light navbar-expand-md flex-shrink-0 px-0">
+        <ds-themed-search-navbar></ds-themed-search-navbar>
+        <ds-themed-lang-switch></ds-themed-lang-switch>
+        <ds-context-help-toggle></ds-context-help-toggle>
+        <ds-themed-auth-nav-menu></ds-themed-auth-nav-menu>
+        <ds-impersonate-navbar></ds-impersonate-navbar>
+        <div *ngIf="isMobile$ | async" class="pl-2">
+          <button class="navbar-toggler px-0" type="button" (click)="toggleNavbar()"
+                  aria-controls="collapsingNav"
+                  aria-expanded="false"
+                  [attr.aria-label]="'nav.toggle' | translate">
+            <span class="fas fa-bars fa-fw toggler-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+</header>

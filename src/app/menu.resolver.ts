@@ -5,6 +5,7 @@ import { MenuID } from './shared/menu/menu-id.model';
 import { MenuState } from './shared/menu/menu-state.model';
 import { MenuItemType } from './shared/menu/menu-item-type.model';
 import { LinkMenuItemModel } from './shared/menu/menu-item/models/link.model';
+import { ExternalLinkMenuItemModel } from './shared/menu/menu-item/models/external-link.model';
 import { getFirstCompletedRemoteData } from './core/shared/operators';
 import { PaginatedList } from './core/data/paginated-list.model';
 import { BrowseDefinition } from './core/shared/browse-definition.model';
@@ -96,11 +97,11 @@ export class MenuResolver implements Resolve<boolean> {
    */
   createPublicMenu$(): Observable<boolean> {
     const menuList: any[] = [
-      /* Communities & Collections tree */
+      /* Communities & Collections tree — hidden: single-collection setup */
       {
         id: `browse_global_communities_and_collections`,
         active: false,
-        visible: true,
+        visible: false,
         index: 0,
         model: {
           type: MenuItemType.LINK,
@@ -138,6 +139,18 @@ export class MenuResolver implements Resolve<boolean> {
                 type: MenuItemType.TEXT,
                 text: 'menu.section.browse_global'
               } as TextMenuItemModel,
+            },
+            /* Link back to the CLARIN.dk landing page */
+            {
+              id: 'clarin_home',
+              active: false,
+              visible: true,
+              index: 0,
+              model: {
+                type: MenuItemType.EXTERNAL,
+                text: 'header.nav.home',
+                href: 'https://clarin.dk',
+              } as ExternalLinkMenuItemModel,
             }
           );
         }

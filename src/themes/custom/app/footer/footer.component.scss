@@ -1,0 +1,17 @@
+.clarin-footer-bottom img[alt="CoreTrustSeal"] {
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+:host footer {
+  background: rgba(20, 25, 50, 0.6);
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.85);
+  border-top: none;
+
+  a {
+    color: rgba(255, 255, 255, 0.85);
+    &:hover { color: #ffffff; }
+  }
+}

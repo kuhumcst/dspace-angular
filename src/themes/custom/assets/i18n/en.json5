@@ -3,5 +3,28 @@
   "menu.section.browse_global": "Browse DSpace",
 
   // DSpace default: "DSpace Angular :: "
-  "repository.title.prefix": "DSpace :: ",
+  "repository.title.prefix": "CLARIN.dk DSpace repository :: ",
+
+  // Header navigation links
+  "header.nav.home": "➠ CLARIN.dk",
+  "header.nav.repository": "Repository",
+  "header.nav.about": "About",
+
+  // Footer
+  "footer.section.coordination-funding": "Coordination, Funding",
+  "footer.section.repository": "Repository",
+  "footer.section.more": "More",
+  "footer.link.nors": "Department of Nordic Studies and Linguistics (NorS), University of Copenhagen",
+  "footer.link.search": "Search Repository",
+  "footer.link.metadata": "Metadata",
+  "footer.link.privacy-policy": "Privacy Policy",
+  "footer.link.submission-lifecycle": "Submission Lifecycle",
+  "footer.link.faq": "FAQ",
+  "footer.link.contact": "Contact",
+  "footer.link.report-issue": "Report an issue",
+  "footer.copyright.prefix": "Copyright ©",
+  "footer.copyright.suffix": "University of Copenhagen. All rights reserved.",
+
+  "login.clarin.message": "Access to this content requires authentication via your institution (SAML).",
+  "login.clarin.button": "Log in with CLARIN",
 }

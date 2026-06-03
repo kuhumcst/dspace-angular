@@ -1,5 +1,8 @@
 debug: false
 
+themes:
+  - name: custom
+
 rest:
   ssl: false
   host: localhost
@@ -106,7 +109,7 @@ cache:
 #  # Whether the privacy statement should exist or not.
 #  enablePrivacyStatement: false
 
-# Allow only EN and CS languages
+# Allow only EN and DA languages
 languages:
   - code: en
     label: English
@@ -116,6 +119,9 @@ languages:
     active: false
   - code: cs
     label: Čeština
+    active: false
+  - code: da
+    label: Dansk
     active: true
   - code: de
     label: Deutsch
