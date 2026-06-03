@@ -7,11 +7,11 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: inherit;
+    color: #ffffff;
 
     &:hover {
       text-decoration: none;
-      color: inherit;
+      color: #ffffff;
     }
   }
 
@@ -28,7 +28,12 @@
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.05em;
-    margin-left: 0.1rem;
+    margin-left: 0.6rem;
+
+    .clarin-dk-label-sub {
+      font-weight: 400;
+      opacity: 0.75;
+    }
   }
 
   .clarin-dk-nav {

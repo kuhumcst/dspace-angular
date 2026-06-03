@@ -1,0 +1,34 @@
+{
+  // DSpace default: "All of DSpace"
+  "menu.section.browse_global": "Gennemse repository",
+
+  // DSpace default: "DSpace Angular :: "
+  "repository.title.prefix": "CLARIN.dk DSpace repository :: ",
+
+  // Header navigation links
+  "header.nav.home": "➠ til CLARIN.dk",
+  "header.nav.repository": "Repository",
+  "header.nav.about": "Om",
+
+  // Footer
+  "footer.section.coordination-funding": "Koordinering og finansiering",
+  "footer.section.repository": "Repository",
+  "footer.section.more": "Mere",
+  "footer.link.nors": "Institut for Nordiske Studier og Sprogvidenskab (NorS), Københavns Universitet",
+  "footer.link.search": "Søg i repository",
+  "footer.link.metadata": "Metadata",
+  "footer.link.privacy-policy": "Privatlivspolitik",
+  "footer.link.submission-lifecycle": "Deponeringsforløb",
+  "footer.link.faq": "Ofte stillede spørgsmål",
+  "footer.link.contact": "Kontakt",
+  "footer.link.report-issue": "Rapporter et problem",
+  "footer.copyright.prefix": "Ophavsret ©",
+  "footer.copyright.suffix": "Københavns Universitet. Alle rettigheder forbeholdt.",
+
+  // Home hero
+  "home.hero.title": "CLARIN.dk Sprogressourcer",
+  "home.hero.tagline": "Det danske nationale bidrag til den europæiske forskningsinfrastruktur for sprogteknologi og sprogressourcer",
+
+  "login.clarin.message": "Adgang til dette indhold kræver godkendelse via din institution (SAML).",
+  "login.clarin.button": "Log ind med CLARIN",
+}

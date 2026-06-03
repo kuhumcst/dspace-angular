@@ -11,6 +11,9 @@ services:
     # Cap SSR memory leak; pm2-runtime respawns the worker on OOM.
     # TODO: investigate and fix the underlying SSR leak so this cap is no longer load-bearing.
     mem_limit: 2g
+    # Dockerfile.dist places dspace-ui.json at /app/dspace-ui.json (no docker/ subdir).
+    # docker-compose.yml's default entrypoint looks for docker/dspace-ui.json, so we fix it here.
+    entrypoint: ["pm2-runtime", "start", "dspace-ui.json"]
     environment:
       # Listen on all interfaces in-container; nginx on the host reverse-proxies to 4001.
       # Upstream hard-codes the docker-network hostname, which doesn't fit our nginx layout.

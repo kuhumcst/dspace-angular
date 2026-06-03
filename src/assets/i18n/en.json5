@@ -3708,7 +3708,7 @@
 
   "repository.title": "DSpace Repository",
 
-  "repository.title.prefix": "DSpace :: ",
+  "repository.title.prefix": "CLARIN.dk DSpace repository :: ",
 
   "resource-policies.add.button": "Add",
 
@@ -6820,6 +6820,8 @@
   "login.already-authenticated.go-profile": "Profile",
 
   "login.already-authenticated.logout": "Logout",
+  "login.clarin.message": "Access to this content requires authentication via your institution (SAML).",
+  "login.clarin.button": "Log in with CLARIN",
 
   "clarin.bitstream.authorization.denied.message": "Access to download the \"{{bitstream}}\" file was denied by the bitstream resource policy.",
 
@@ -6887,13 +6889,13 @@
 
   "statistics.views-downloads.view-button": "Statistics",
 
-  "header.nav.home": "Home",
+  "header.nav.home": "➠ CLARIN.dk",
 
   "header.nav.repository": "Repository",
 
-  "header.nav.about": "About CLARIN-DK",
+  "header.nav.about": "About",
 
-  "home.hero.title": "CLARIN-DK Language Resources",
+  "home.hero.title": "CLARIN.dk Language Resources",
 
   "home.hero.tagline": "The Danish national contribution to the European research infrastructure for language technology and language resources",
 
@@ -6914,6 +6916,8 @@
   "footer.link.faq": "FAQ",
 
   "footer.link.contact": "Contact",
+
+  "footer.link.report-issue": "Report an issue",
 
   "footer.copyright.prefix": "Copyright ©",
 

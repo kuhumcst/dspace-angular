@@ -1,0 +1,27 @@
+<div ngbDropdown class="navbar-nav" *ngIf="moreThanOneLanguage" display="dynamic" placement="bottom-right">
+  <button role="button"
+          [attr.aria-label]="'nav.language' | translate"
+          aria-controls="language-menu-list"
+          aria-haspopup="menu"
+          [title]="'nav.language' | translate"
+          class="dropdown-toggle btn btn-link px-0"
+          ngbDropdownToggle
+          data-test="lang-switch"
+          tabindex="0">
+    <img class="lang-flag" [src]="'assets/images/flags/' + getFlagCode(translate.currentLang) + '.svg'"
+         [alt]="currentLangLabel()" aria-hidden="true">
+    <span class="lang-label">{{ currentLangLabel() }}</span>
+  </button>
+  <div ngbDropdownMenu class="dropdown-menu" role="listbox" [attr.aria-label]="'nav.language' | translate" id="language-menu-list">
+    <div class="dropdown-item" tabindex="0" role="option" #langSelect *ngFor="let lang of translate.getLangs()"
+         [lang]="lang"
+         (keyup.enter)="useLang(lang)"
+         (click)="useLang(lang)"
+         [attr.aria-selected]="lang === translate.currentLang"
+         [class.active]="lang === translate.currentLang">
+      <img class="lang-flag" [src]="'assets/images/flags/' + getFlagCode(lang) + '.svg'"
+           [alt]="langLabel(lang)" aria-hidden="true">
+      {{ langLabel(lang) }}
+    </div>
+  </div>
+</div>

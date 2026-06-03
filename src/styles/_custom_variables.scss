@@ -1,22 +1,66 @@
 :root {
+  /* Flexoki colour scheme https://stephango.com/flexoki */
+  --flexoki-black:       #100F0F;
+  --flexoki-paper:       #FFFCF0;
+
+  --flexoki-950:         #1C1B1A;
+  --flexoki-900:         #282726;
+  --flexoki-850:         #343331;
+  --flexoki-800:         #403E3C;
+  --flexoki-700:         #575653;
+  --flexoki-600:         #6F6E69;
+  --flexoki-500:         #878580;
+  --flexoki-300:         #B7B5AC;
+  --flexoki-200:         #CECDC3;
+  --flexoki-150:         #DAD8CE;
+  --flexoki-100:         #E6E4D9;
+  --flexoki-50:          #F2F0E5;
+
+  --flexoki-red-600:     #AF3029;
+  --flexoki-red-400:     #D14D41;
+
+  --flexoki-orange-600:  #BC5215;
+  --flexoki-orange-400:  #DA702C;
+
+  --flexoki-yellow-900:  #4D3A0B;
+  --flexoki-yellow-600:  #AD8301;
+  --flexoki-yellow-400:  #D0A215;
+  --flexoki-yellow-100:  #FCEEB8;
+
+  --flexoki-green-600:   #66800B;
+  --flexoki-green-400:   #879A39;
+
+  --flexoki-cyan-950:    #142625;
+  --flexoki-cyan-600:    #24837B;
+  --flexoki-cyan-400:    #3AA99F;
+  --flexoki-cyan-50:     #EBF2E7;
+
+  --flexoki-blue-600:    #205EA6;
+  --flexoki-blue-400:    #4385BE;
+
+  --flexoki-purple-600:  #5E409D;
+  --flexoki-purple-400:  #8B7EC8;
+
+  --flexoki-magenta-600: #A02F6F;
+  --flexoki-magenta-400: #CE5D97;
 
   --lt-common-navbar-height: 80px;
-  --lt-clarin-purple: #7479b8;
+  --lt-clarin-purple: #{var(--flexoki-purple-400)};
 
-  --lt-clarin-yellow-bg: #fcf8e3;;
-  --lt-clarin-yellow-border: #fbeed5;
+  --lt-clarin-yellow-bg: #{var(--flexoki-yellow-400)};
+  --lt-clarin-yellow-border: #{var(--flexoki-yellow-400)};
 
-  --lt-clarin-red-bg: #f2dede;
-  --lt-clarin-red-text: #b94a48;
-  --lt-clarin-red-border: #eed3d7;
+  --lt-clarin-red-bg: #{var(--flexoki-red-400)};
+  --lt-clarin-red-text: #{var(--flexoki-red-400)};
+  --lt-clarin-red-border: #{var(--flexoki-red-400)};
 
-  --lt-clarin-blue-bg: #d9edf7;
-  --lt-clarin-blue-text: #3a87ad;
-  --lt-clarin-blue-border: #bce8f1;
+  --lt-clarin-blue-bg: #{var(--flexoki-blue-400)};
+  --lt-clarin-blue-text: #{var(--flexoki-blue-400)};
+  --lt-clarin-blue-border: #{var(--flexoki-blue-400)};
 
-  --lt-clarin-gray-border: #d7d7d7;
+  --lt-clarin-gray-border: #{var(--flexoki-150)};
 
-  --ds-content-spacing: #{$spacer}; // equivalent to Bootstrap spaces of size 3
+  --ds-content-spacing: 2rem !important;
 
   --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};
 
@@ -41,7 +85,7 @@
   --ds-header-icon-color: #{$ds-header-icon-color};
   --ds-header-icon-color-hover: #{$ds-header-icon-color-hover};
 
-  --ds-navbar-bg: #{$ds-navbar-bg};
+  --ds-navbar-bg: rgba(20, 25, 50, 0.6) !important;
   --ds-navbar-item-vertical-padding: 0;
   --ds-navbar-item-horizontal-padding: 0.25rem;
   --ds-navbar-dropdown-bg: #{$ds-navbar-dropdown-bg};
@@ -119,9 +163,9 @@
   --ds-home-news-link-hover-color: #{darken($ds-home-news-link-color, 15%)};
   --ds-home-news-background-color: #{$gray-200};
 
-  --ds-breadcrumb-bg: #{$gray-200} !important;
-  --ds-breadcrumb-link-color: #{$ds-breadcrumb-link-color};
-  --ds-breadcrumb-link-active-color: #{$ds-breadcrumb-link-active-color};
+  --ds-breadcrumb-bg: rgba(20, 25, 50, 0.6) !important;
+  --ds-breadcrumb-link-color: white !important;
+  --ds-breadcrumb-link-active-color: white !important;
   --ds-breadcrumb-max-length: 200px;
 
   --ds-slider-color: #{$ds-slider-color};

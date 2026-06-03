@@ -3,21 +3,15 @@
     <div class="d-flex flex-row align-items-center justify-content-between">
 
       <a class="clarin-dk-brand my-2" routerLink="/home" [attr.aria-label]="'menu.header.image.logo' | translate">
-        <img src="assets/images/clarin-logo.svg" alt="CLARIN" class="clarin-dk-logo">
-        <span class="clarin-dk-label">DK</span>
+        <img src="assets/images/dspace-logo-mini.svg" alt="DSpace" class="clarin-dk-logo">
+        <span class="clarin-dk-label">
+          <span class="clarin-dk-label-main">CLARIN.dk</span>
+          <span class="clarin-dk-label-sub">DSpace repository</span>
+        </span>
       </a>
 
       <nav class="clarin-dk-nav d-none d-md-flex align-items-center"
            [attr.aria-label]="'nav.main.description' | translate">
-        <a routerLink="/home" routerLinkActive="active"
-           [routerLinkActiveOptions]="{exact: true}"
-           class="clarin-dk-nav-link">{{ 'header.nav.home' | translate }}</a>
-        <a routerLink="/search" routerLinkActive="active"
-           class="clarin-dk-nav-link">{{ 'header.nav.repository' | translate }}</a>
-        <a href="https://info.clarin.dk/en/" class="clarin-dk-nav-link"
-           target="_blank" rel="noopener">{{ 'header.nav.about' | translate }}</a>
-        <a href="https://www.clarin.eu/" class="clarin-dk-nav-link"
-           target="_blank" rel="noopener">CLARIN ERIC</a>
       </nav>
 
       <nav role="navigation" [attr.aria-label]="'nav.user.description' | translate"

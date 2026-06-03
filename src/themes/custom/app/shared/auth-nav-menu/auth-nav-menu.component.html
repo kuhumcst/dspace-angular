@@ -1,6 +1,6 @@
 <div class="navbar-nav mr-auto" *ngIf="!(isMobile$ | async); else mobileButtons" data-test="auth-nav">
   <div *ngIf="!(isAuthenticated$ | async) && showAuth$ | async" class="nav-item" @fadeInOut>
-    <button class="btn btn-link px-0"
+    <button class="btn btn-secondary btn-sm"
             [attr.aria-label]="'nav.login' | translate"
             (click)="redirectToDiscovery()">
       {{ 'nav.login' | translate }}
@@ -15,7 +15,7 @@
         aria-controls="user-menu-dropdown"
         (click)="$event.preventDefault()"
         [title]="'nav.user-profile-menu-and-logout' | translate"
-        class="dropdownLogout btn btn-link px-0"
+        class="dropdownLogout btn btn-secondary btn-sm"
         [attr.data-test]="'user-menu' | dsBrowserOnly"
         ngbDropdownToggle>
         <i class="fas fa-user-circle fa-lg fa-fw"></i>

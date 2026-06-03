@@ -33,7 +33,7 @@ languages:
     active: true
   - code: da
     label: Dansk
-    active: false
+    active: true
   - code: cs
     label: Ceština
     active: false

@@ -1,8 +1,56 @@
 // Override or add CSS variables for your theme here
 
 :root {
-  //--ds-header-logo-height: 80px;
-  //--ds-header-logo-height-xs: 50px;
-  //--ds-header-icon-color: #{$link-color};
-  //--ds-header-icon-color-hover: #{darken($link-color, 15%)};
+  // Header — transparent on gradient, white icons/text
+  --ds-header-bg: transparent;
+  --ds-header-icon-color: rgba(255, 255, 255, 0.85);
+  --ds-header-icon-color-hover: #ffffff;
+
+  // Navbar
+  --ds-navbar-bg: transparent;
+  --ds-navbar-link-color: rgba(255, 255, 255, 0.85);
+  --ds-navbar-link-color-hover: #ffffff;
+  --ds-navbar-dropdown-bg: #1F2640;
+  --ds-header-navbar-border-bottom-color: rgba(255, 255, 255, 0.25);
+  --ds-expandable-navbar-link-color: #E6E4D9;
+  --ds-expandable-navbar-link-color-hover: #ffffff;
+
+  // Footer — transparent on gradient
+  --ds-top-footer-bg: transparent;
+  --ds-footer-bg: transparent;
+
+  // Body
+  --bs-body-color: #ffffff; // keep in sync with $body-color in _theme_sass_variable_overrides.scss
+  --bs-body-bg: transparent;
+
+  // Bootstrap "light" colour — used by many components as bg/border
+  --bs-light: rgba(20, 25, 50, 0.6);
+  --bs-light-rgb: 20, 25, 50;
+
+  // Cards — semi-transparent dark panel so content floats over the gradient
+  --bs-card-bg: rgba(20, 25, 50, 0.6);
+  --bs-card-border-color: rgba(255, 255, 255, 0.1);
+  --bs-card-color: #E6E4D9;
+
+  // Links — match clarin.dk: white with transparent underline
+  --bs-link-color: rgba(255, 255, 255, 0.8);
+  --bs-link-hover-color: rgba(255, 255, 255, 0.8);
+
+  // Dropdowns (browse menus etc.)
+  --bs-dropdown-bg: #1F2640;
+  --bs-dropdown-color: #E6E4D9;
+  --bs-dropdown-link-color: #E6E4D9;
+  --bs-dropdown-link-hover-color: #ffffff;
+  --bs-dropdown-link-hover-bg: rgba(255, 255, 255, 0.1);
+  --bs-dropdown-border-color: rgba(255, 255, 255, 0.15);
+
+  // Form inputs — dark background, light text
+  --bs-form-control-bg: rgba(20, 25, 50, 0.6);
+  --bs-form-control-color: #E6E4D9;
+  --bs-form-control-border-color: rgba(255, 255, 255, 0.25);
+
+  // Tables
+  --bs-table-bg: transparent;
+  --bs-table-color: #E6E4D9;
+  --bs-table-border-color: rgba(255, 255, 255, 0.1);
 }

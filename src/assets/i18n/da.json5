@@ -1,0 +1,712 @@
+{
+
+  "401.help": "Du har ikke adgang til denne side. Du kan bruge knappen nedenfor til at komme tilbage til forsiden.",
+
+  "401.link.home-page": "Tag mig til forsiden",
+
+  "401.unauthorized": "Ikke autoriseret",
+
+  "403.help": "Du har ikke tilladelse til at tilgå denne side. Du kan bruge knappen nedenfor til at komme tilbage til forsiden.",
+
+  "403.link.home-page": "Tag mig til forsiden",
+
+  "403.forbidden": "Adgang nægtet",
+
+  "500.page-internal-server-error": "Tjenesten er ikke tilgængelig",
+
+  "500.help": "Serveren er midlertidigt ikke i stand til at behandle din forespørgsel på grund af vedligeholdelse eller kapacitetsproblemer. Prøv venligst igen senere.",
+
+  "500.link.home-page": "Tag mig til forsiden",
+
+  "404.help": "Vi kan ikke finde den side, du leder efter. Siden kan være blevet flyttet eller slettet. Du kan bruge knappen nedenfor til at komme tilbage til forsiden.",
+
+  "404.link.home-page": "Tag mig til forsiden",
+
+  "404.page-not-found": "Siden blev ikke fundet",
+
+  "static-page.404.help": "Den statiske side, du bad om, eksisterer ikke. Den kan være blevet flyttet eller slettet. Du kan bruge knappen nedenfor til at komme tilbage til forsiden.",
+
+  "static-page.404.link.home-page": "Tag mig til forsiden",
+
+  "static-page.404.page-not-found": "siden blev ikke fundet",
+
+  "error-page.description.401": "Ikke autoriseret",
+
+  "error-page.description.403": "Adgang nægtet",
+
+  "error-page.description.500": "Tjenesten er ikke tilgængelig",
+
+  "error-page.description.404": "Siden blev ikke fundet",
+
+  "error-page.orcid.generic-error": "Der opstod en fejl under login via ORCID. Sørg for, at du har delt din ORCID-kontos e-mailadresse med DSpace. Kontakt administratoren, hvis fejlen fortsætter",
+
+  "listelement.badge.access-status": "Adgangsstatus:",
+
+  "access-status.embargo.listelement.badge": "Embargo",
+
+  "access-status.metadata.only.listelement.badge": "Kun metadata",
+
+  "access-status.open.access.listelement.badge": "Åben adgang",
+
+  "access-status.restricted.listelement.badge": "Begrænset",
+
+  "access-status.unknown.listelement.badge": "Ukendt",
+
+  "browse.back.all-results": "Alle gennemseningsresultater",
+
+  "browse.comcol.by.author": "Efter forfatter",
+
+  "browse.comcol.by.dateissued": "Efter udgivelsesdato",
+
+  "browse.comcol.by.subject": "Efter emne",
+
+  "browse.comcol.by.title": "Efter titel",
+
+  "browse.comcol.head": "Gennemse",
+
+  "browse.empty": "Ingen elementer at vise.",
+
+  "browse.metadata.author": "Forfatter",
+
+  "browse.metadata.dateissued": "Udgivelsesdato",
+
+  "browse.metadata.subject": "Emne",
+
+  "browse.metadata.title": "Titel",
+
+  "browse.metadata.author.breadcrumbs": "Gennemse efter forfatter",
+
+  "browse.metadata.dateissued.breadcrumbs": "Gennemse efter dato",
+
+  "browse.metadata.subject.breadcrumbs": "Gennemse efter emne",
+
+  "browse.metadata.title.breadcrumbs": "Gennemse efter titel",
+
+  "browse.startsWith": ", startende med {{ startsWith }}",
+
+  "browse.startsWith.choose_start": "(Vælg start)",
+
+  "browse.startsWith.choose_year": "(Vælg år)",
+
+  "browse.startsWith.choose_year.label": "Vælg udgivelsesår",
+
+  "browse.startsWith.jump": "Filtrer resultater efter år eller måned",
+
+  "browse.startsWith.months.april": "April",
+
+  "browse.startsWith.months.august": "August",
+
+  "browse.startsWith.months.december": "December",
+
+  "browse.startsWith.months.february": "Februar",
+
+  "browse.startsWith.months.january": "Januar",
+
+  "browse.startsWith.months.july": "Juli",
+
+  "browse.startsWith.months.june": "Juni",
+
+  "browse.startsWith.months.march": "Marts",
+
+  "browse.startsWith.months.may": "Maj",
+
+  "browse.startsWith.months.none": "(Vælg måned)",
+
+  "browse.startsWith.months.none.label": "Vælg udgivelsesmåned",
+
+  "browse.startsWith.months.november": "November",
+
+  "browse.startsWith.months.october": "Oktober",
+
+  "browse.startsWith.months.september": "September",
+
+  "browse.startsWith.submit": "Gennemse",
+
+  "browse.startsWith.type_date": "Filtrer resultater efter dato",
+
+  "browse.startsWith.type_date.label": "Eller skriv en dato (år-måned) og klik på knappen Gennemse",
+
+  "browse.startsWith.type_text": "Filtrer resultater ved at skrive de første bogstaver",
+
+  "browse.startsWith.input": "Filter",
+
+  "browse.title": "Gennemser {{ collection }} efter {{ field }}{{ startsWith }} {{ value }}",
+
+  "browse.title.page": "Gennemser {{ collection }} efter {{ field }} {{ value }}",
+
+  "search.browse.item-back": "Tilbage til resultater",
+
+  "collection.listelement.badge": "Samling",
+
+  "collection.logo": "Samlings-logo",
+
+  "collection.page.browse.recent.head": "Seneste deponeringer",
+
+  "collection.page.browse.recent.empty": "Ingen elementer at vise",
+
+  "collection.page.edit": "Rediger denne samling",
+
+  "collection.page.handle": "Permanent URI for denne samling",
+
+  "collection.page.license": "Licens",
+
+  "collection.page.news": "Nyheder",
+
+  "communityList.breadcrumbs": "Fællesskabsliste",
+
+  "communityList.tabTitle": "Fællesskabsliste",
+
+  "communityList.title": "Liste over fællesskaber",
+
+  "communityList.showMore": "Vis mere",
+
+  "communityList.expand": "Udvid {{ name }}",
+
+  "communityList.collapse": "Skjul {{ name }}",
+
+  "community.listelement.badge": "Fællesskab",
+
+  "community.logo": "Fællesskabs-logo",
+
+  "community.page.edit": "Rediger dette fællesskab",
+
+  "community.page.handle": "Permanent URI for dette fællesskab",
+
+  "community.page.license": "Licens",
+
+  "community.page.news": "Nyheder",
+
+  "community.all-lists.head": "Underfællesskaber og samlinger",
+
+  "community.sub-collection-list.head": "Samlinger i dette fællesskab",
+
+  "community.sub-community-list.head": "Fællesskaber i dette fællesskab",
+
+  "cookies.consent.accept-all": "Accepter alle",
+
+  "cookies.consent.accept-selected": "Accepter valgte",
+
+  "cookies.consent.app.opt-out.description": "Denne app indlæses som standard (men du kan fravælge den)",
+
+  "cookies.consent.app.opt-out.title": "(fravalg)",
+
+  "cookies.consent.app.purpose": "formål",
+
+  "cookies.consent.app.required.description": "Denne applikation er altid påkrævet",
+
+  "cookies.consent.app.required.title": "(altid påkrævet)",
+
+  "cookies.consent.app.disable-all.description": "Brug denne kontakt til at aktivere eller deaktivere alle tjenester.",
+
+  "cookies.consent.app.disable-all.title": "Aktivér eller deaktivér alle tjenester",
+
+  "cookies.consent.update": "Der har været ændringer siden dit sidste besøg. Opdater venligst dit samtykke.",
+
+  "cookies.consent.close": "Luk",
+
+  "cookies.consent.decline": "Afvis",
+
+  "cookies.consent.ok": "Det er OK",
+
+  "cookies.consent.save": "Gem",
+
+  "cookies.consent.content-notice.title": "Cookiesamtykke",
+
+  "cookies.consent.content-notice.description": "Vi indsamler og behandler dine personoplysninger til følgende formål: <strong>Godkendelse, præferencer, bekræftelse og statistik</strong>. <br/> Læs mere i vores {privacyPolicy}.",
+
+  "cookies.consent.content-notice.description.no-privacy": "Vi indsamler og behandler dine personoplysninger til følgende formål: <strong>Godkendelse, præferencer, bekræftelse og statistik</strong>.",
+
+  "cookies.consent.content-notice.learnMore": "Tilpas",
+
+  "cookies.consent.content-modal.description": "Her kan du se og tilpasse de oplysninger, vi indsamler om dig.",
+
+  "cookies.consent.content-modal.privacy-policy.name": "privatlivspolitik",
+
+  "cookies.consent.content-modal.privacy-policy.text": "Læs mere i vores {privacyPolicy}.",
+
+  "cookies.consent.content-modal.title": "Oplysninger, vi indsamler",
+
+  "cookies.consent.content-modal.services": "tjenester",
+
+  "cookies.consent.content-modal.service": "tjeneste",
+
+  "cookies.consent.app.title.accessibility": "Tilgængelighedsindstillinger",
+
+  "cookies.consent.app.description.accessibility": "Påkrævet for at gemme dine tilgængelighedsindstillinger lokalt",
+
+  "cookies.consent.app.title.authentication": "Godkendelse",
+
+  "cookies.consent.app.description.authentication": "Påkrævet for at logge dig ind",
+
+  "cookies.consent.app.title.preferences": "Præferencer",
+
+  "cookies.consent.app.description.preferences": "Påkrævet for at gemme dine præferencer",
+
+  "cookies.consent.app.title.acknowledgement": "Bekræftelse",
+
+  "cookies.consent.app.description.acknowledgement": "Påkrævet for at gemme dine bekræftelser og samtykker",
+
+  "cookies.consent.app.title.google-analytics": "Google Analytics",
+
+  "cookies.consent.app.description.google-analytics": "Giver os mulighed for at spore statistiske data",
+
+  "cookies.consent.purpose.functional": "Funktionel",
+
+  "cookies.consent.purpose.statistical": "Statistisk",
+
+  "cookies.consent.purpose.sharing": "Deling",
+
+  "dynamic-list.load-more": "Indlæs mere",
+
+  "dropdown.clear": "Ryd valg",
+
+  "dropdown.clear.tooltip": "Ryd den valgte indstilling",
+
+  "dso.name.untitled": "Uden titel",
+
+  "dso.name.unnamed": "Uden navn",
+
+  "home.description": "DSpace er en digital tjeneste, der indsamler, bevarer og distribuerer digitalt materiale. Repositories er vigtige værktøjer til at bevare en organisations arv; de fremmer digital bevaring og videnskabelig kommunikation.",
+
+  "home.breadcrumbs": "Hjem",
+
+  "home.search-form.placeholder": "Søg i repository ...",
+
+  "home.title": "Forside",
+
+  "home.top-level-communities.head": "Fællesskaber i DSpace",
+
+  "home.top-level-communities.help": "Vælg et fællesskab for at gennemse dets samlinger.",
+
+  "item.alerts.private": "Dette element er ikke søgbart",
+
+  "item.alerts.withdrawn": "Dette element er blevet trukket tilbage",
+
+  "item.badge.status": "Elementstatus:",
+
+  "item.badge.private": "Ikke søgbart",
+
+  "item.badge.withdrawn": "Trukket tilbage",
+
+  "listelement.badge.dso-type": "Elementtype:",
+
+  "none.listelement.badge": "Element",
+
+  "login.form.email": "E-mailadresse",
+
+  "login.form.forgot-password": "Har du glemt din adgangskode?",
+
+  "login.form.header": "Log ind på DSpace",
+
+  "login.form.new-user": "Ny bruger? Klik her for at registrere.",
+
+  "login.form.oidc": "Log ind med OIDC",
+
+  "login.form.orcid": "Log ind med ORCID",
+
+  "login.form.password": "Adgangskode",
+
+  "login.form.shibboleth": "Log ind med Shibboleth",
+
+  "login.form.submit": "Log ind",
+
+  "login.title": "Log ind",
+
+  "login.breadcrumbs": "Log ind",
+
+  "login.already-authenticated.header": "Du er allerede logget ind",
+
+  "login.already-authenticated.message": "Du er allerede godkendt. Vil du gå til forsiden eller din profil?",
+
+  "login.already-authenticated.go-home": "Forside",
+
+  "login.already-authenticated.go-profile": "Profil",
+
+  "login.already-authenticated.logout": "Log ud",
+  "login.clarin.message": "Adgang til dette indhold kræver godkendelse via din institution (SAML).",
+  "login.clarin.button": "Log ind med CLARIN",
+
+  "logout.form.header": "Log ud af DSpace",
+
+  "logout.form.submit": "Log ud",
+
+  "logout.title": "Log ud",
+
+  "nav.expandable-navbar-section-suffix": "(undermenu)",
+
+  "nav.browse.header": "Hele DSpace",
+
+  "nav.community-browse.header": "Efter fællesskab",
+
+  "nav.context-help-toggle": "Slå konteksthjælp til/fra",
+
+  "nav.language": "Skift sprog",
+
+  "nav.login": "Log ind",
+
+  "nav.user-profile-menu-and-logout": "Brugerprofil og log ud",
+
+  "nav.logout": "Log ud",
+
+  "nav.main.description": "Hovednavigationslinje",
+
+  "nav.mydspace": "Min DSpace",
+
+  "nav.profile": "Profil",
+
+  "nav.search": "Søg",
+
+  "nav.search.button": "Udfør søgning",
+
+  "nav.statistics.header": "Statistik",
+
+  "nav.stop-impersonating": "Stop med at repræsentere EPerson",
+
+  "nav.subscriptions": "Abonnementer",
+
+  "nav.toggle": "Skift navigation",
+
+  "nav.user.description": "Brugerprofillinje",
+
+  "pagination.options.description": "Sideindstillinger",
+
+  "pagination.results-per-page": "Resultater per side",
+
+  "pagination.showing.detail": "{{ range }} ud af {{ total }} resultater",
+
+  "pagination.showing.label": "Viser nu ",
+
+  "pagination.sort-direction": "Sorteringsindstillinger",
+
+  "search.description": "",
+
+  "search.switch-configuration.title": "Vis",
+
+  "search.title": "Søg",
+
+  "search.breadcrumbs": "Søg",
+
+  "search.search-form.placeholder": "Søg i repository ...",
+
+  "search.filters.remove": "Fjern filter af typen {{ type }} med værdien {{ value }}",
+
+  "search.filters.applied.f.author": "Forfatter",
+
+  "search.filters.applied.f.dateIssued.max": "Slutdato",
+
+  "search.filters.applied.f.dateIssued.min": "Startdato",
+
+  "search.filters.applied.f.dateSubmitted": "Afleveret dato",
+
+  "search.filters.applied.f.discoverable": "Ikke søgbart",
+
+  "search.filters.applied.f.entityType": "Elementtype",
+
+  "search.filters.applied.f.has_content_in_original_bundle": "Har filer",
+
+  "search.filters.applied.f.itemtype": "Type",
+
+  "search.filters.applied.f.subject": "Emne",
+
+  "search.filters.filter.author.head": "Forfatter",
+
+  "search.filters.filter.author.placeholder": "Forfatternavn",
+
+  "search.filters.filter.author.label": "Søg forfatternavn",
+
+  "search.filters.filter.collapse": "Skjul filter",
+
+  "search.filters.filter.dateIssued.head": "Dato",
+
+  "search.filters.filter.dateIssued.max.placeholder": "Maksimal dato",
+
+  "search.filters.filter.dateIssued.max.label": "Slut",
+
+  "search.filters.filter.dateIssued.min.placeholder": "Minimal dato",
+
+  "search.filters.filter.dateIssued.min.label": "Start",
+
+  "search.filters.filter.entityType.head": "Elementtype",
+
+  "search.filters.filter.entityType.placeholder": "Elementtype",
+
+  "search.filters.filter.entityType.label": "Søg elementtype",
+
+  "search.filters.filter.expand": "Udvid filter",
+
+  "search.filters.filter.has_content_in_original_bundle.head": "Har filer",
+
+  "search.filters.filter.itemtype.head": "Type",
+
+  "search.filters.filter.itemtype.placeholder": "Type",
+
+  "search.filters.filter.itemtype.label": "Søg type",
+
+  "search.filters.filter.scope.head": "Omfang",
+
+  "search.filters.filter.scope.placeholder": "Omfangsfilter",
+
+  "search.filters.filter.scope.label": "Søg omfangsfilter",
+
+  "search.filters.filter.show-less": "Vis mindre",
+
+  "search.filters.filter.show-more": "Vis mere",
+
+  "search.filters.filter.subject.head": "Emne",
+
+  "search.filters.filter.subject.placeholder": "Emne",
+
+  "search.filters.filter.subject.label": "Søg emne",
+
+  "search.filters.head": "Afgræns din søgning",
+
+  "search.filters.reset": "Nulstil filtre",
+
+  "search.filters.search.submit": "Søg",
+
+  "search.form.search": "Søg",
+
+  "search.form.search_dspace": "Hele repository",
+
+  "search.form.scope.all": "Hele DSpace",
+
+  "search.results.head": "Søgeresultater",
+
+  "search.results.no-results": "Din søgning gav ingen resultater. Kan du ikke finde det, du leder efter? Prøv at sætte",
+
+  "search.results.no-results-link": "anførselstegn omkring det",
+
+  "search.results.empty": "Din søgning gav ingen resultater.",
+
+  "search.results.view-result": "Vis",
+
+  "search.results.response.500": "Der opstod en fejl under udførelsen af forespørgslen. Prøv venligst igen senere",
+
+  "default.search.results.head": "Søgeresultater",
+
+  "search.sidebar.close": "Tilbage til resultater",
+
+  "search.sidebar.filters.title": "Filtre",
+
+  "search.sidebar.open": "Søgeværktøjer",
+
+  "search.sidebar.results": "resultater",
+
+  "search.sidebar.settings.rpp": "Resultater per side",
+
+  "search.sidebar.settings.sort-by": "Sortér efter",
+
+  "search.sidebar.settings.title": "Indstillinger",
+
+  "search.view-switch.show-detail": "Vis detaljer",
+
+  "search.view-switch.show-grid": "Vis som gitter",
+
+  "search.view-switch.show-list": "Vis som liste",
+
+  "selectable-list-item-control.deselect": "Fravælg element",
+
+  "selectable-list-item-control.select": "Vælg element",
+
+  "sorting.ASC": "Stigende",
+
+  "sorting.DESC": "Faldende",
+
+  "sorting.dc.title.ASC": "Titel stigende",
+
+  "sorting.dc.title.DESC": "Titel faldende",
+
+  "sorting.score.ASC": "Mindst relevant",
+
+  "sorting.score.DESC": "Mest relevant",
+
+  "sorting.dc.date.issued.ASC": "Udgivelsesdato stigende",
+
+  "sorting.dc.date.issued.DESC": "Udgivelsesdato faldende",
+
+  "sorting.dc.date.accessioned.ASC": "Tilgangsdato stigende",
+
+  "sorting.dc.date.accessioned.DESC": "Tilgangsdato faldende",
+
+  "sorting.lastModified.ASC": "Sidst ændret stigende",
+
+  "sorting.lastModified.DESC": "Sidst ændret faldende",
+
+  "statistics.title": "Statistik",
+
+  "statistics.header": "Statistik for {{ scope }}",
+
+  "statistics.breadcrumbs": "Statistik",
+
+  "statistics.page.no-data": "Ingen data tilgængelig",
+
+  "statistics.table.no-data": "Ingen data tilgængelig",
+
+  "statistics.table.title.TotalVisits": "Samlet antal besøg",
+
+  "statistics.table.title.TotalVisitsPerMonth": "Samlet antal besøg per måned",
+
+  "statistics.table.title.TotalDownloads": "Filbesøg",
+
+  "statistics.table.title.TopCountries": "Top lande (visninger)",
+
+  "statistics.table.title.TopCities": "Top byer (visninger)",
+
+  "statistics.table.header.views": "Visninger",
+
+  "statistics.table.no-name": "(objektnavn kunne ikke indlæses)",
+
+  "statistics.views-downloads.back-to-item": "Tilbage til element",
+
+  "statistics.views-downloads.drill-down-info": "Klik på et datapunkt for at se detaljer per år / måned.",
+
+  "statistics.views-downloads.views": "Visninger",
+
+  "statistics.views-downloads.downloads": "Downloads",
+
+  "statistics.views-downloads.back-to-months": "Tilbage til måneder",
+
+  "statistics.views-downloads.back-to-years": "Tilbage til år",
+
+  "statistics.views-downloads.statistics-for": "Statistik for",
+
+  "statistics.views-downloads.loading": "Indlæser statistik...",
+
+  "statistics.views-downloads.all-months": "Alle måneder",
+
+  "statistics.views-downloads.all-years": "Alle år",
+
+  "statistics.views-downloads.months.january": "Januar",
+
+  "statistics.views-downloads.months.february": "Februar",
+
+  "statistics.views-downloads.months.march": "Marts",
+
+  "statistics.views-downloads.months.april": "April",
+
+  "statistics.views-downloads.months.may": "Maj",
+
+  "statistics.views-downloads.months.june": "Juni",
+
+  "statistics.views-downloads.months.july": "Juli",
+
+  "statistics.views-downloads.months.august": "August",
+
+  "statistics.views-downloads.months.september": "September",
+
+  "statistics.views-downloads.months.october": "Oktober",
+
+  "statistics.views-downloads.months.november": "November",
+
+  "statistics.views-downloads.months.december": "December",
+
+  "statistics.views-downloads.view-button": "Statistik",
+
+  "submission.edit.breadcrumbs": "Rediger deponering",
+
+  "submission.edit.title": "Rediger deponering",
+
+  "submission.general.cancel": "Annuller",
+
+  "submission.general.cannot_submit": "Du har ikke tilladelse til at foretage en ny deponering.",
+
+  "submission.general.deposit": "Aflever",
+
+  "submission.general.discard.confirm.cancel": "Annuller",
+
+  "submission.general.discard.confirm.info": "Denne handling kan ikke fortrydes. Er du sikker?",
+
+  "submission.general.discard.confirm.submit": "Ja, jeg er sikker",
+
+  "submission.general.discard.confirm.title": "Kassér deponering",
+
+  "submission.general.discard.submit": "Kassér",
+
+  "submission.general.info.saved": "Gemt",
+
+  "submission.general.info.pending-changes": "Ugemte ændringer",
+
+  "submission.general.save": "Gem",
+
+  "submission.general.save-later": "Gem til senere",
+
+  "sidebar.expand.all": "Udvid alle",
+
+  "sidebar.collapse.all": "Skjul alle",
+
+  "bitstream.download.page": "Downloader nu {{bitstream}}...",
+
+  "bitstream.download.page.back": "Tilbage",
+
+  "home.image.glass": "Forside-billede med forstørrelsesglas",
+
+  "home.image.lindat-color-line": "LINDAT farvelinjebillede",
+
+  "home.news.image.banner": "Forsidenyhedsbannerbillede",
+
+  "home.hero.title": "CLARIN.dk Sprogressourcer",
+
+  "home.hero.tagline": "Det danske nationale bidrag til den europæiske forskningsinfrastruktur for sprogteknologi og sprogressourcer",
+
+  "header.nav.home": "➠ til CLARIN.dk",
+
+  "header.nav.repository": "Repository",
+
+  "header.nav.about": "Om",
+
+  "footer.section.coordination-funding": "Koordinering og finansiering",
+
+  "footer.section.repository": "Repository",
+
+  "footer.section.more": "Mere",
+
+  "footer.link.nors": "Institut for Nordiske Studier og Sprogvidenskab (NorS), Københavns Universitet",
+
+  "footer.link.search": "Søg i repository",
+
+  "footer.link.metadata": "Metadata",
+
+  "footer.link.privacy-policy": "Privatlivspolitik",
+
+  "footer.link.submission-lifecycle": "Deponeringsforløb",
+
+  "footer.link.faq": "Ofte stillede spørgsmål",
+
+  "footer.link.contact": "Kontakt",
+
+  "footer.copyright.prefix": "Ophavsret ©",
+
+  "footer.copyright.suffix": "Københavns Universitet. Alle rettigheder forbeholdt.",
+
+  "menu.section.browse_global": "Gennemse repository",
+
+  "menu.section.browse_global_by_author": "Efter forfatter",
+
+  "menu.section.browse_global_by_dateissued": "Efter udgivelsesdato",
+
+  "menu.section.browse_global_by_subject": "Efter emne",
+
+  "menu.section.browse_global_by_srsc": "Efter emnekategori",
+
+  "menu.section.browse_global_by_nsi": "Efter norsk videnskabsindeks",
+
+  "menu.section.browse_global_by_title": "Efter titel",
+
+  "menu.section.browse_global_by_language": "Efter sprog",
+
+  "menu.section.browse_global_communities_and_collections": "Fællesskaber og samlinger",
+
+  "menu.section.browse_community": "Dette fællesskab",
+
+  "menu.section.browse_community_by_author": "Efter forfatter",
+
+  "menu.section.browse_community_by_issue_date": "Efter udgivelsesdato",
+
+  "menu.section.browse_community_by_title": "Efter titel",
+
+  "clarin.bitstream.authorization.denied.message": "Adgang til at downloade filen \"{{bitstream}}\" blev nægtet af ressourcepolitikken for bitstreammen.",
+
+  "repository.title.prefix": "CLARIN.dk DSpace repository :: ",
+
+  "footer.link.report-issue": "Rapporter et problem",
+}
