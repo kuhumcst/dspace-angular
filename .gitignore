@@ -36,6 +36,12 @@ package-lock.json
 .java-version
 
 .env
+docker/.env
+
+# Local dev proxy configs (developer-specific, not for production)
+proxy.conf.js
+proxy.conf.json
+
 /nbproject/
 
 junit.xml

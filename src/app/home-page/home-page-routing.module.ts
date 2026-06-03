@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { LinkMenuItemModel } from '../shared/menu/menu-item/models/link.model';
 import { ThemedHomePageComponent } from './themed-home-page.component';
-import { MenuItemType } from '../shared/menu/menu-item-type.model';
 
 @NgModule({
   imports: [
@@ -14,19 +12,7 @@ import { MenuItemType } from '../shared/menu/menu-item-type.model';
         pathMatch: 'full',
         data: {
           title: 'home.title',
-          menu: {
-            public: [{
-              id: 'statistics_site',
-              active: true,
-              visible: true,
-              index: 2,
-              model: {
-                type: MenuItemType.LINK,
-                text: 'menu.section.statistics',
-                link: 'statistics',
-              } as LinkMenuItemModel,
-            }],
-          },
+          // statistics_site removed — site_stats in menu.resolver.ts handles this without auth-gating
         }
       }
     ])

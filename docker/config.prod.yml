@@ -2,13 +2,13 @@
 
 rest:
   ssl: true
-  host: dspace.clarin.dk
+  host: repository.clarin.dk
   port: 443
   nameSpace: /server
 
 ui:
   ssl: true
-  host: dspace.clarin.dk
+  host: repository.clarin.dk
   port: 443
   nameSpace: /
 
@@ -23,13 +23,17 @@ universal:
 
 # Languages: Danish is inactive until da.json5 translation file is created
 # (see CLARIN-DK-CUSTOMIZATION.md).  English is the sole active language for now.
+themes:
+  - name: custom
+  - name: dspace
+
 languages:
   - code: en
     label: English
     active: true
   - code: da
     label: Dansk
-    active: false
+    active: true
   - code: cs
     label: Ceština
     active: false

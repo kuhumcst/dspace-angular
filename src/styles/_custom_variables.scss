@@ -1,22 +1,7 @@
 :root {
-
   --lt-common-navbar-height: 80px;
-  --lt-clarin-purple: #7479b8;
 
-  --lt-clarin-yellow-bg: #fcf8e3;;
-  --lt-clarin-yellow-border: #fbeed5;
-
-  --lt-clarin-red-bg: #f2dede;
-  --lt-clarin-red-text: #b94a48;
-  --lt-clarin-red-border: #eed3d7;
-
-  --lt-clarin-blue-bg: #d9edf7;
-  --lt-clarin-blue-text: #3a87ad;
-  --lt-clarin-blue-border: #bce8f1;
-
-  --lt-clarin-gray-border: #d7d7d7;
-
-  --ds-content-spacing: #{$spacer}; // equivalent to Bootstrap spaces of size 3
+  --ds-content-spacing: 2rem !important;
 
   --ds-button-height: #{$input-btn-padding-y * 2 + $input-btn-line-height + calculateRem($input-btn-border-width*2)};
 
@@ -41,7 +26,7 @@
   --ds-header-icon-color: #{$ds-header-icon-color};
   --ds-header-icon-color-hover: #{$ds-header-icon-color-hover};
 
-  --ds-navbar-bg: #{$ds-navbar-bg};
+  --ds-navbar-bg: rgba(20, 25, 50, 0.6) !important;
   --ds-navbar-item-vertical-padding: 0;
   --ds-navbar-item-horizontal-padding: 0.25rem;
   --ds-navbar-dropdown-bg: #{$ds-navbar-dropdown-bg};
@@ -119,9 +104,9 @@
   --ds-home-news-link-hover-color: #{darken($ds-home-news-link-color, 15%)};
   --ds-home-news-background-color: #{$gray-200};
 
-  --ds-breadcrumb-bg: #{$gray-200} !important;
-  --ds-breadcrumb-link-color: #{$ds-breadcrumb-link-color};
-  --ds-breadcrumb-link-active-color: #{$ds-breadcrumb-link-active-color};
+  --ds-breadcrumb-bg: rgba(20, 25, 50, 0.6) !important;
+  --ds-breadcrumb-link-color: white !important;
+  --ds-breadcrumb-link-active-color: white !important;
   --ds-breadcrumb-max-length: 200px;
 
   --ds-slider-color: #{$ds-slider-color};

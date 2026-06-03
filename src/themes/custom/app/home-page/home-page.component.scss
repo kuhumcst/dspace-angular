@@ -1,0 +1,16 @@
+// Dark theme overrides for the base home-page utility classes.
+// !important needed because the base component SCSS defines these inside :host {}
+// giving them (0,3,0) specificity which we can't reliably beat via cascade order.
+:host {
+  .clarin-home-page-color   { background-color: transparent !important; }
+  .clarin-home-page-borders { border: none !important; }
+  .clarin-shadow            { box-shadow: none !important; }
+  .clarin-fix-to-navbar     { margin-top: 0 !important; }
+  .clarin-cut-bottom        { margin-bottom: 0 !important; }
+
+  .clarin-home-page-items-color {
+    background-color: #1F2640 !important;
+    border: none !important;
+    color: #ffffff !important;
+  }
+}

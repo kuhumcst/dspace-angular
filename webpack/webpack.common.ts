@@ -33,6 +33,21 @@ export const copyWebpackOptions = {
       to: 'assets',
     },
     {
+      // Convert theme i18n JSON5 files to plain JSON so the translate loader can fetch them.
+      // Output: assets/{theme}/i18n/{lang}.json (no hash — cache-busted by deployment).
+      from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*.json5').replace(/\\/g, '/'),
+      noErrorOnMissing: true,
+      to({ absoluteFilename }) {
+        const matches = absoluteFilename.match(/.*[\/|\\]themes[\/|\\]([^\/|^\\]+)[\/|\\]assets[\/|\\](.+)\.json5$/);
+        if (matches) {
+          return path.join('assets', matches[1], `${matches[2]}.json`);
+        }
+      },
+      transform(content) {
+        return JSON.stringify(JSON5.parse(content.toString()));
+      }
+    },
+    {
       // replace(/\\/g, '/') because glob patterns need forward slashes, even on windows:
       // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
       from: path.join(__dirname, '..', 'src', 'themes', '*', 'assets', '**', '*').replace(/\\/g, '/'),
