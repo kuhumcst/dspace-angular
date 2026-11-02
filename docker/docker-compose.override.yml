@@ -27,6 +27,34 @@ services:
         DSPACE_IMAGE: ufal/dspace:3e204e5e5d2267f7ac4c89d09d80930829d1cef6
     image: clarin-dk/dspace:3e204e5e5d2267f7ac4c89d09d80930829d1cef6
     user: root
+    # Replaces (via !override) the port list from docker-compose-rest.yml so
+    # that ONLY the native Handle protocol port (2641 tcp/udp) is public.
+    # Everything else stays on localhost: nginx proxies the REST API at
+    # 127.0.0.1:808${INSTANCE}. HOST_IP in .env must be 127.0.0.1 so that
+    # dspacedb/dspacesolr/dspace-angular are not published publicly either.
+    # (Docker-published ports bypass the host's iptables INPUT rules, so the
+    # bind address is the only protection on this host.)
+    ports: !override
+      # REST API (Tomcat) — reached via nginx only
+      - published: 808${INSTANCE}
+        target: 8080
+        host_ip: 127.0.0.1
+      # Handle HTTP interface / debug port (container 8000)
+      - published: 800${INSTANCE}
+        target: 8000
+        host_ip: 127.0.0.1
+      # Handle native protocol — must be reachable by the global Handle.net resolvers
+      - published: 264${INSTANCE}
+        target: 2641
+        protocol: tcp
+        host_ip: 0.0.0.0
+      - published: 264${INSTANCE}
+        target: 2641
+        protocol: udp
+        host_ip: 0.0.0.0
+      - published: 801${INSTANCE}
+        target: 8010
+        host_ip: 127.0.0.1
     volumes:
       - /data/dspace7/logs:/dspace/log
       - /data/dspace7/assetstore:/dspace/assetstore
