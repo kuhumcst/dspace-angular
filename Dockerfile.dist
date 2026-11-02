@@ -23,6 +23,25 @@ RUN yarn build:prod
 FROM node:18-alpine
 RUN npm install --global pm2
 
+# CLARIN-DK: distrust eMudhra (emSign) roots. In October 2026 the private keys
+# of eight eMudhra intermediates turned out to be trivially derivable, so
+# anyone can mint certificates chaining to these roots. Node compiles its own
+# copy of Mozilla's root list into the binary, which can't be edited, so the
+# SSR workers run with --use-openssl-ca (see docker/dspace-ui.json) and use
+# this OS bundle instead. The checks fail the build if an emSign root remains.
+RUN apk add --no-cache ca-certificates \
+ && apk add --no-cache --virtual .verify openssl \
+ && sed -i -E 's|^(mozilla/emSign_[^ ]+\.crt)$|!\1|' /etc/ca-certificates.conf \
+ && grep -q '^!mozilla/emSign' /etc/ca-certificates.conf \
+ && update-ca-certificates \
+ && ! ls /etc/ssl/certs | grep -qi emsign \
+ && test -s /etc/ssl/certs/ca-certificates.crt \
+ && ! awk -v cmd='openssl x509 -noout -subject' \
+        '/BEGIN/{c=""} {c=c $0 "\n"} /END/{print c | cmd; close(cmd)}' \
+        /etc/ssl/certs/ca-certificates.crt | grep -qi emsign \
+ && apk del .verify
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
 COPY --chown=node:node --from=build /app/dist /app/dist
 COPY --chown=node:node config /app/config
 COPY --chown=node:node docker/dspace-ui.json /app/dspace-ui.json
