@@ -19,7 +19,10 @@ $dk-border-soft:  rgba(255, 255, 255, 0.1);
 $dk-accent:       $flexoki-cyan-400;
 $dk-accent-light: #5DC4BA;
 
-html {
+// #__dspace_ssr_overlay covers the page while Angular boots (see src/index.html).
+// Upstream makes it white, which hides our white text, so it gets the gradient too.
+html,
+body > #__dspace_ssr_overlay {
   min-height: 100vh;
   background: linear-gradient(45deg, rgba(73, 93, 109, 1) 4.3%, rgba(49, 55, 82, 1) 96.7%);
   background-attachment: fixed;
